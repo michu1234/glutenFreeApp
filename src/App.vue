@@ -21,7 +21,7 @@
             Gluten Free
             <br/>
             <small>
-              <span class="text--pink">for Minia...</span>
+              <span class="text--pink">for...</span>
             </small>
           </p>
         </div>
