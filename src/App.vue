@@ -62,6 +62,13 @@
               @blur="$v.email.$touch()"
               required
             ></v-text-field>
+             <v-layout>
+                  <v-text-field
+                    name="input-7-1"
+                    label="Sposób wykonania"
+                    multi-line
+                  ></v-text-field>
+              </v-layout>
             <v-select
               label="Kategoria"
               v-model="select"
@@ -93,7 +100,7 @@
         <form>
           <v-text-field
             label="Nazwa produktu"
-            v-model="przepisy.name"
+            v-model="produkty.name"
             :error-messages="nameErrors"
             :counter="10"
             @input="$v.name.$touch()"
@@ -102,7 +109,7 @@
           ></v-text-field>
           <v-text-field
             label="Kcal w 100g"
-            v-model="przepisy.email"
+            v-model="produkty.email"
             :error-messages="emailErrors"
             @input="$v.email.$touch()"
             @blur="$v.email.$touch()"
@@ -111,7 +118,7 @@
           <v-select
             label="Kategoria"
             v-model="select"
-            :items="przepisy.items"
+            :items="produkty.items"
             :error-messages="selectErrors"
             @change="$v.select.$touch()"
             @blur="$v.select.$touch()"
@@ -141,7 +148,7 @@
       drawerRight: true,
       right: null,
       left: null,
-      przepisy: {
+      produkty: {
         name: '',
         email: '',
         select: null,
@@ -153,6 +160,18 @@
           'Słodycze',
           'Mrożonki',
           'Alkohol'
+        ]
+      },
+      przepisy: {
+        name: '',
+        email: '',
+        select: null,
+        items: [
+          'Śniadanie',
+          'Obiad',
+          'Kolacja',
+          'Deser',
+          'Przekąska'
         ]
       }
     }),
