@@ -7,7 +7,7 @@
             <v-icon>exit_to_app</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Dodaj nowy przepis</v-list-tile-title>
+            <v-list-tile-title>Dodaj nowy produkt</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -36,13 +36,46 @@
             <v-icon>exit_to_app</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Dodaj nowy produkt</v-list-tile-title>
+            <v-list-tile-title>Dodaj nowy przepis</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <main>
-      <v-navigation-drawer temporary v-model="left" fixed></v-navigation-drawer>
+      <v-navigation-drawer temporary v-model="left" fixed>
+        <v-container>
+          <form>
+            <v-text-field
+              label="Przepis na..."
+              v-model="przepisy.name"
+              :error-messages="nameErrors"
+              :counter="10"
+              @input="$v.name.$touch()"
+              @blur="$v.name.$touch()"
+              required
+            ></v-text-field>
+            <v-text-field
+              label="Składniki"
+              v-model="przepisy.email"
+              :error-messages="emailErrors"
+              @input="$v.email.$touch()"
+              @blur="$v.email.$touch()"
+              required
+            ></v-text-field>
+            <v-select
+              label="Kategoria"
+              v-model="select"
+              :items="przepisy.items"
+              :error-messages="selectErrors"
+              @change="$v.select.$touch()"
+              @blur="$v.select.$touch()"
+              required
+            ></v-select>
+            <v-btn @click="submit">submit</v-btn>
+            <v-btn @click="clear">clear</v-btn>
+          </form>
+        </v-container>
+      </v-navigation-drawer>
       <v-content>
         <v-container fluid fill-height>
           <v-layout justify-center align-center>
@@ -55,7 +88,40 @@
           </v-layout>
         </v-container>
       </v-content>
-      <v-navigation-drawer right temporary v-model="right" fixed></v-navigation-drawer>
+      <v-navigation-drawer right temporary v-model="right" fixed>
+        <v-container>
+        <form>
+          <v-text-field
+            label="Nazwa produktu"
+            v-model="przepisy.name"
+            :error-messages="nameErrors"
+            :counter="10"
+            @input="$v.name.$touch()"
+            @blur="$v.name.$touch()"
+            required
+          ></v-text-field>
+          <v-text-field
+            label="Kcal w 100g"
+            v-model="przepisy.email"
+            :error-messages="emailErrors"
+            @input="$v.email.$touch()"
+            @blur="$v.email.$touch()"
+            required
+          ></v-text-field>
+          <v-select
+            label="Kategoria"
+            v-model="select"
+            :items="przepisy.items"
+            :error-messages="selectErrors"
+            @change="$v.select.$touch()"
+            @blur="$v.select.$touch()"
+            required
+          ></v-select>
+          <v-btn @click="submit">submit</v-btn>
+          <v-btn @click="clear">clear</v-btn>
+        </form>
+        </v-container>
+      </v-navigation-drawer>
     </main>
     <v-footer color="yellow accent-4" class="white--text" app>
       <span>
@@ -67,20 +133,48 @@
   </v-app>
 </template>
 
+
 <script>
   export default {
     data: () => ({
       drawer: true,
       drawerRight: true,
       right: null,
-      left: null
+      left: null,
+      przepisy: {
+        name: '',
+        email: '',
+        select: null,
+        items: [
+          'Mięso i ryby',
+          'Nabiał i jaja',
+          'Owoce i warzywa',
+          'Pieczywo',
+          'Słodycze',
+          'Mrożonki',
+          'Alkohol'
+        ]
+      }
     }),
+    methods: {
+      submit () {
+        this.$v.$touch()
+      },
+      clear () {
+        this.$v.$reset()
+        this.name = ''
+        this.email = ''
+        this.select = null
+        this.checkbox = false
+      }
+    },
     props: {
       source: String
     }
   }
 
 </script>
+
 
 <style scoped>
   @import url('https://fonts.googleapis.com/css?family=Chewy');
@@ -94,7 +188,6 @@
     display: inline-block;
     line-height: 16px;
     font-family: 'Chewy', cursive;
-
 
     text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7);
   }
