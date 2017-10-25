@@ -82,14 +82,49 @@
       </v-navigation-drawer>
       <v-content>
         <v-container fluid fill-height>
-          <v-layout justify-center align-center>
+          <v-layout justify-center align-center row wrap>
            
+    
+
+
+
 
 <ul>
-  <li v-for="(r, index) in displayRecipe" :key="index">{{r.name}} | {{r.ingridients}} | {{r.directions}} | {{r.select}} </li>
-</ul>
-<ul>
-  <li v-for="(p, index) in displayProduct" :key="index">{{p.name}} | {{p.kcal}} | {{p.select}} </li>
+  <li v-for="(r, index) in displayRecipe" :key="index">
+    <span class="display-3"> {{r.name}}</span> || <span class="title">{{r.select}}</span>
+     <v-flex xs6>
+        <v-card light color="grey lighten-4">
+          <v-card-text class="px-2"><img :src="photoUrl" alt=""></v-card-text>
+        </v-card>
+      </v-flex>
+     
+     
+     
+     
+       <v-flex xs6>
+        <v-card light color="grey lighten-4">
+          <v-card-text class="px-2">
+            {{r.ingridients}}
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    
+     <v-flex xs12>
+        <v-card light color="grey lighten-4">
+          <v-card-text class="px-2">
+         {{r.directions}}
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    
+    
+    
+    
+    
+    
+    
+    
+</li>
 </ul>
 
 
@@ -145,6 +180,7 @@ export default {
     drawerRight: true,
     right: null,
     left: null,
+    photoUrl: "",
     product: {
       name: "",
       kcal: "",
@@ -161,7 +197,7 @@ export default {
     },
     recipe: {
       name: "",
-      ingridients: "",
+      ingridients: [],
       directions: "",
       select: "",
       items: ["Śniadanie", "Obiad", "Kolacja", "Deser", "Przekąska"]
@@ -190,6 +226,7 @@ export default {
         ingridients: this.recipe.ingridients,
         select: this.recipe.select
       });
+      this.getPhoto();
       this.recipe.name = "";
       this.recipe.ingridients = "";
       this.recipe.directions = "";
@@ -201,7 +238,7 @@ export default {
       this.recipe.directions = "";
       this.recipe.select = "";
     },
-      submitProduct() {
+    submitProduct() {
       this.displayProduct.push({
         name: this.product.name,
         directions: this.product.kcal,
@@ -215,7 +252,13 @@ export default {
       this.product.name = "";
       this.product.kcal = "";
       this.product.select = "";
-    }
+    },
+    getPhoto() {
+      fetch(`https://pixabay.com/api/?key=6818598-da2281dcdfb680148ef22e7a5&q=${this.recipe.name}&image_type=illustration&min_width=200`).then(function(response) { 
+	// Convert to JSON
+  return response.json();}).then(data =>{
+    this.photoUrl = data.hits[0].webformatURL});
+}
   },
   props: {
     source: String
@@ -230,7 +273,7 @@ export default {
 .logo {
   width: 100px;
   vertical-align: bottom;
-  animation: logo_animation 11s 2s infinite;
+  animation: logo_animation 8s 5s infinite;
 }
 
 @keyframes logo_animation {
@@ -242,8 +285,16 @@ export default {
   }
   79% {
     filter: saturate(100%);
-    filter: drop-shadow(0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #ff00de , 0 0 70px #ff00de , 0 0 80px #ff00de , 0 0 100px #ff00de);
-    filter: blur(.4px);
+    filter: drop-shadow(
+      0 0 10px rgba(255, 255, 255, 1),
+      0 0 20px rgba(255, 255, 255, 1),
+      0 0 30px rgba(255, 255, 255, 1),
+      0 0 40px #ff00de,
+      0 0 70px #ff00de,
+      0 0 80px #ff00de,
+      0 0 100px #ff00de
+    );
+    filter: blur(0.4px);
   }
   80% {
     filter: saturate(0);
@@ -253,16 +304,32 @@ export default {
   }
   92% {
     filter: saturate(100%);
-    filter: drop-shadow(0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #ff00de , 0 0 70px #ff00de , 0 0 80px #ff00de , 0 0 100px #ff00de);
-    filter: blur(.4px);
+    filter: drop-shadow(
+      0 0 10px rgba(255, 255, 255, 1),
+      0 0 20px rgba(255, 255, 255, 1),
+      0 0 30px rgba(255, 255, 255, 1),
+      0 0 40px #ff00de,
+      0 0 70px #ff00de,
+      0 0 80px #ff00de,
+      0 0 100px #ff00de
+    );
+    filter: blur(0.4px);
   }
   93% {
     filter: saturate(0);
   }
   94% {
     filter: saturate(100%);
-    filter: drop-shadow(0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #ff00de , 0 0 70px #ff00de , 0 0 80px #ff00de , 0 0 100px #ff00de);
-    filter: blur(.4px);
+    filter: drop-shadow(
+      0 0 10px rgba(255, 255, 255, 1),
+      0 0 20px rgba(255, 255, 255, 1),
+      0 0 30px rgba(255, 255, 255, 1),
+      0 0 40px #ff00de,
+      0 0 70px #ff00de,
+      0 0 80px #ff00de,
+      0 0 100px #ff00de
+    );
+    filter: blur(0.4px);
   }
   95% {
     filter: saturate(0);
@@ -283,6 +350,10 @@ export default {
 .logo:hover {
   filter: saturate(100%);
   transition: all 0.25s;
+}
+
+img {
+  max-width: 200px;
 }
 
 p {
