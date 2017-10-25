@@ -12,7 +12,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="yellow accent-4" dark fixed app clipped-right>
+    <v-toolbar color="pink darken-3" dark fixed app clipped-right>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>
         <div class="logo__box">
@@ -21,7 +21,7 @@
             Gluten Free
             <br/>
             <small>
-              <span class="text--pink">for...</span>
+              <span class="text--red">for...</span>
             </small>
           </p>
         </div>
@@ -41,96 +41,93 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
+    </v-navigation-drawer>
     <main>
       <v-navigation-drawer temporary v-model="left" fixed>
+
+<!-- recipe -->
+
         <v-container>
           <form>
             <v-text-field
               label="Przepis na..."
-              v-model="przepisy.name"
-              :error-messages="nameErrors"
+              v-model="recipe.name"
               :counter="10"
-              @input="$v.name.$touch()"
-              @blur="$v.name.$touch()"
               required
             ></v-text-field>
             <v-text-field
               label="Składniki"
-              v-model="przepisy.email"
-              :error-messages="emailErrors"
-              @input="$v.email.$touch()"
-              @blur="$v.email.$touch()"
+              v-model="recipe.ingridients"
               required
             ></v-text-field>
              <v-layout>
                   <v-text-field
                     name="input-7-1"
                     label="Sposób wykonania"
+                    v-model="recipe.directions"
+                    :counter="100"
                     multi-line
                   ></v-text-field>
               </v-layout>
             <v-select
               label="Kategoria"
-              v-model="select"
-              :items="przepisy.items"
-              :error-messages="selectErrors"
-              @change="$v.select.$touch()"
-              @blur="$v.select.$touch()"
+              v-model="recipe.select"
+              :items="recipe.items"
               required
             ></v-select>
-            <v-btn @click="submit">submit</v-btn>
-            <v-btn @click="clear">clear</v-btn>
+            <v-btn @click="submitRecipe">Dodaj</v-btn>
+            <v-btn @click="clearRecipe">Wyczyść</v-btn>
           </form>
         </v-container>
       </v-navigation-drawer>
       <v-content>
         <v-container fluid fill-height>
           <v-layout justify-center align-center>
-            <v-tooltip right>
-              <v-btn icon large :href="source" target="_blank" slot="activator">
-                <v-icon large>code</v-icon>
-              </v-btn>
-              <span>Source</span>
-            </v-tooltip>
+           
+
+<ul>
+  <li v-for="(r, index) in displayRecipe" :key="index">{{r.name}} | {{r.ingridients}} | {{r.directions}} | {{r.select}} </li>
+</ul>
+<ul>
+  <li v-for="(p, index) in displayProduct" :key="index">{{p.name}} | {{p.kcal}} | {{p.select}} </li>
+</ul>
+
+
+
+
           </v-layout>
         </v-container>
       </v-content>
       <v-navigation-drawer right temporary v-model="right" fixed>
+
+<!-- PRODUKTY -->
+
         <v-container>
         <form>
           <v-text-field
             label="Nazwa produktu"
-            v-model="produkty.name"
-            :error-messages="nameErrors"
+            v-model="product.name"
             :counter="10"
-            @input="$v.name.$touch()"
-            @blur="$v.name.$touch()"
             required
           ></v-text-field>
           <v-text-field
             label="Kcal w 100g"
-            v-model="produkty.email"
-            :error-messages="emailErrors"
-            @input="$v.email.$touch()"
-            @blur="$v.email.$touch()"
+            v-model="product.kcal"
             required
           ></v-text-field>
           <v-select
             label="Kategoria"
-            v-model="select"
-            :items="produkty.items"
-            :error-messages="selectErrors"
-            @change="$v.select.$touch()"
-            @blur="$v.select.$touch()"
+            v-model="product.select"
+            :items="product.items"
             required
           ></v-select>
-          <v-btn @click="submit">submit</v-btn>
-          <v-btn @click="clear">clear</v-btn>
+          <v-btn @click="submitProduct">Dodaj</v-btn>
+          <v-btn @click="clearProduct">Wyczyść</v-btn>
         </form>
         </v-container>
       </v-navigation-drawer>
     </main>
-    <v-footer color="yellow accent-4" class="white--text" app>
+    <v-footer color="pink darken-3" class="white--text" app>
       <span>
         <small>&copy; Copyright 2017, Dawid Nawrocki</small>
       </span>
@@ -142,82 +139,158 @@
 
 
 <script>
-  export default {
-    data: () => ({
-      drawer: true,
-      drawerRight: true,
-      right: null,
-      left: null,
-      produkty: {
-        name: '',
-        email: '',
-        select: null,
-        items: [
-          'Mięso i ryby',
-          'Nabiał i jaja',
-          'Owoce i warzywa',
-          'Pieczywo',
-          'Słodycze',
-          'Mrożonki',
-          'Alkohol'
-        ]
-      },
-      przepisy: {
-        name: '',
-        email: '',
-        select: null,
-        items: [
-          'Śniadanie',
-          'Obiad',
-          'Kolacja',
-          'Deser',
-          'Przekąska'
-        ]
-      }
-    }),
-    methods: {
-      submit () {
-        this.$v.$touch()
-      },
-      clear () {
-        this.$v.$reset()
-        this.name = ''
-        this.email = ''
-        this.select = null
-        this.checkbox = false
-      }
+export default {
+  data: () => ({
+    drawer: true,
+    drawerRight: true,
+    right: null,
+    left: null,
+    product: {
+      name: "",
+      kcal: "",
+      select: "",
+      items: [
+        "Mięso i ryby",
+        "Nabiał i jaja",
+        "Owoce i warzywa",
+        "Pieczywo",
+        "Słodycze",
+        "Mrożonki",
+        "Alkohol"
+      ]
     },
-    props: {
-      source: String
+    recipe: {
+      name: "",
+      ingridients: "",
+      directions: "",
+      select: "",
+      items: ["Śniadanie", "Obiad", "Kolacja", "Deser", "Przekąska"]
+    },
+    displayProduct: [
+      {
+        name: "Pomidor",
+        kcal: "22",
+        select: "Owoce i warzywa"
+      }
+    ],
+    displayRecipe: [
+      {
+        name: "Pomidorowa",
+        ingridients: "pomidory, woda, przyprawy, bulion",
+        directions: "Dokładnie umyj swoje pomidory...",
+        select: "Obiad"
+      }
+    ]
+  }),
+  methods: {
+    submitRecipe() {
+      this.displayRecipe.push({
+        name: this.recipe.name,
+        directions: this.recipe.directions,
+        ingridients: this.recipe.ingridients,
+        select: this.recipe.select
+      });
+      this.recipe.name = "";
+      this.recipe.ingridients = "";
+      this.recipe.directions = "";
+      this.recipe.select = "";
+    },
+    clearRecipe() {
+      this.recipe.name = "";
+      this.recipe.ingridients = "";
+      this.recipe.directions = "";
+      this.recipe.select = "";
+    },
+      submitProduct() {
+      this.displayProduct.push({
+        name: this.product.name,
+        directions: this.product.kcal,
+        select: this.product.select
+      });
+      this.product.name = "";
+      this.product.kcal = "";
+      this.product.select = "";
+    },
+    clearProduct() {
+      this.product.name = "";
+      this.product.kcal = "";
+      this.product.select = "";
     }
+  },
+  props: {
+    source: String
   }
-
+};
 </script>
 
 
 <style scoped>
-  @import url('https://fonts.googleapis.com/css?family=Chewy');
+@import url("https://fonts.googleapis.com/css?family=Chewy");
 
-  .logo {
-    width: 100px;
-    vertical-align: bottom;
+.logo {
+  width: 100px;
+  vertical-align: bottom;
+  animation: logo_animation 11s 2s infinite;
+}
+
+@keyframes logo_animation {
+  0% {
+    filter: saturate(0);
   }
-
-  .logo__box {
-    display: inline-block;
-    line-height: 16px;
-    font-family: 'Chewy', cursive;
-
-    text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7);
+  78% {
+    filter: saturate(0);
   }
-
-  p {
-    display: inline-block;
+  79% {
+    filter: saturate(100%);
+    filter: drop-shadow(0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #ff00de , 0 0 70px #ff00de , 0 0 80px #ff00de , 0 0 100px #ff00de);
+    filter: blur(.4px);
   }
-
-  .text--pink {
-    color: #f50057;
+  80% {
+    filter: saturate(0);
   }
+  91% {
+    filter: saturate(0);
+  }
+  92% {
+    filter: saturate(100%);
+    filter: drop-shadow(0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #ff00de , 0 0 70px #ff00de , 0 0 80px #ff00de , 0 0 100px #ff00de);
+    filter: blur(.4px);
+  }
+  93% {
+    filter: saturate(0);
+  }
+  94% {
+    filter: saturate(100%);
+    filter: drop-shadow(0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #ff00de , 0 0 70px #ff00de , 0 0 80px #ff00de , 0 0 100px #ff00de);
+    filter: blur(.4px);
+  }
+  95% {
+    filter: saturate(0);
+  }
+  100% {
+    filter: saturate(0);
+  }
+}
 
+.logo__box {
+  display: inline-block;
+  line-height: 16px;
+  font-family: "Chewy", cursive;
+
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7);
+}
+
+.logo:hover {
+  filter: saturate(100%);
+  transition: all 0.25s;
+}
+
+p {
+  display: inline-block;
+}
+
+.text--red {
+  color: gold;
+}
 </style>
 
