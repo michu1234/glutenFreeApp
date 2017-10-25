@@ -81,8 +81,8 @@
         </v-container>
       </v-navigation-drawer>
       <v-content>
-        <v-container fluid fill-height>
-          <v-layout justify-center align-center row wrap>
+        <v-container fluid>
+          <v-layout  align-center>
            
     
 
@@ -91,27 +91,31 @@
 
 <ul>
   <li v-for="(r, index) in displayRecipe" :key="index">
-    <span class="display-3"> {{r.name}}</span> || <span class="title">{{r.select}}</span>
-     <v-flex xs6>
-        <v-card light color="grey lighten-4">
-          <v-card-text class="px-2"><img :src="photoUrl" alt=""></v-card-text>
-        </v-card>
-      </v-flex>
-     
-     
-     
-     
-       <v-flex xs6>
-        <v-card light color="grey lighten-4">
-          <v-card-text class="px-2">
-            {{r.ingridients}}
-          </v-card-text>
-        </v-card>
-      </v-flex>
+    <span class="display-3">{{r.name}} </span> || <span class="title"> {{r.select}}</span>
+     <v-layout row wrap>
+       <v-flex md6>
+          <v-card light color="grey lighten-4 mr-2 mb-2">
+            <v-card-text class="px-2"><img :src="r.url" alt=""></v-card-text>
+          </v-card>
+        </v-flex>
+       
+       
+       
+       
+         <v-flex md6>
+          <v-card light color="grey lighten-4">
+            <v-card-text class="px-2">
+              <h2 class="title">SKŁADNIKI:</h2>
+              {{r.ingridients}}
+            </v-card-text>
+          </v-card>
+        </v-flex>
+     </v-layout>
     
      <v-flex xs12>
         <v-card light color="grey lighten-4">
           <v-card-text class="px-2">
+            <h2 class="title">PRZYGOTOWANIE:</h2>
          {{r.directions}}
           </v-card-text>
         </v-card>
@@ -180,7 +184,6 @@ export default {
     drawerRight: true,
     right: null,
     left: null,
-    photoUrl: "",
     product: {
       name: "",
       kcal: "",
@@ -200,6 +203,7 @@ export default {
       ingridients: [],
       directions: "",
       select: "",
+      url: "",
       items: ["Śniadanie", "Obiad", "Kolacja", "Deser", "Przekąska"]
     },
     displayProduct: [
@@ -212,30 +216,46 @@ export default {
     displayRecipe: [
       {
         name: "Pomidorowa",
-        ingridients: "pomidory, woda, przyprawy, bulion",
-        directions: "Dokładnie umyj swoje pomidory...",
+        ingridients:
+          "Przecier pomidorowy, woda, przyprawy, bulion, makaron świderki",
+        directions:
+          "Dokładnie umyj swoje pomidory... Zupę pomidorową najczęściej przygotowuje się z ugotowanego dzień wcześniej rosołu. Do rosołu (może być zimny) dodajemy koncentrat pomidorowy i śmietanę i dokładnie mieszamy. Podgrzewamy na małym ogniu co chwilę mieszając. Poniżej przepis jak przygotować zupę pomidorową od samego początku.",
+        url:
+          "https://pixabay.com/get/eb34b80f2bf4003ed95c4518b74a4e97eb72ebdd04b014419df9c078a7e4b3_640.png",
         select: "Obiad"
       }
     ]
   }),
   methods: {
-    submitRecipe() {
+ async submitRecipe() {
+ await fetch(
+        `https://pixabay.com/api/?key=6818598-da2281dcdfb680148ef22e7a5&q=${this
+          .recipe.name}&image_type=illustration&min_width=200`
+      )
+        .then(function(response) {
+          return response.json();
+        })
+        .then(data => {
+          this.recipe.url = data.hits[0].webformatURL;
+        });
       this.displayRecipe.push({
         name: this.recipe.name,
         directions: this.recipe.directions,
         ingridients: this.recipe.ingridients,
+        url: this.recipe.url,
         select: this.recipe.select
       });
-      this.getPhoto();
       this.recipe.name = "";
       this.recipe.ingridients = "";
       this.recipe.directions = "";
+      this.recipe.url = "";
       this.recipe.select = "";
     },
     clearRecipe() {
       this.recipe.name = "";
       this.recipe.ingridients = "";
       this.recipe.directions = "";
+      this.recipe.url = "";
       this.recipe.select = "";
     },
     submitProduct() {
@@ -252,13 +272,7 @@ export default {
       this.product.name = "";
       this.product.kcal = "";
       this.product.select = "";
-    },
-    getPhoto() {
-      fetch(`https://pixabay.com/api/?key=6818598-da2281dcdfb680148ef22e7a5&q=${this.recipe.name}&image_type=illustration&min_width=200`).then(function(response) { 
-	// Convert to JSON
-  return response.json();}).then(data =>{
-    this.photoUrl = data.hits[0].webformatURL});
-}
+    }
   },
   props: {
     source: String
@@ -286,15 +300,14 @@ export default {
   79% {
     filter: saturate(100%);
     filter: drop-shadow(
-      0 0 10px rgba(255, 255, 255, 1),
-      0 0 20px rgba(255, 255, 255, 1),
-      0 0 30px rgba(255, 255, 255, 1),
-      0 0 40px #ff00de,
-      0 0 70px #ff00de,
-      0 0 80px #ff00de,
-      0 0 100px #ff00de
+      0 0 1px rgba(255, 255, 255, 1),
+      0 0 2px rgba(255, 255, 255, 1),
+      0 0 3px rgba(255, 255, 255, 1),
+      0 0 4px #ff00de,
+      0 0 7px #ff00de,
+      0 0 8px #ff00de,
+      0 0 10px #ff00de
     );
-    filter: blur(0.4px);
   }
   80% {
     filter: saturate(0);
@@ -305,15 +318,14 @@ export default {
   92% {
     filter: saturate(100%);
     filter: drop-shadow(
-      0 0 10px rgba(255, 255, 255, 1),
-      0 0 20px rgba(255, 255, 255, 1),
-      0 0 30px rgba(255, 255, 255, 1),
-      0 0 40px #ff00de,
-      0 0 70px #ff00de,
-      0 0 80px #ff00de,
-      0 0 100px #ff00de
+      0 0 1px rgba(255, 255, 255, 1),
+      0 0 2px rgba(255, 255, 255, 1),
+      0 0 3px rgba(255, 255, 255, 1),
+      0 0 4px #ff00de,
+      0 0 7px #ff00de,
+      0 0 8px #ff00de,
+      0 0 10px #ff00de
     );
-    filter: blur(0.4px);
   }
   93% {
     filter: saturate(0);
@@ -321,15 +333,14 @@ export default {
   94% {
     filter: saturate(100%);
     filter: drop-shadow(
-      0 0 10px rgba(255, 255, 255, 1),
-      0 0 20px rgba(255, 255, 255, 1),
-      0 0 30px rgba(255, 255, 255, 1),
-      0 0 40px #ff00de,
-      0 0 70px #ff00de,
-      0 0 80px #ff00de,
-      0 0 100px #ff00de
+      0 0 1px rgba(255, 255, 255, 1),
+      0 0 2px rgba(255, 255, 255, 1),
+      0 0 3px rgba(255, 255, 255, 1),
+      0 0 4px #ff00de,
+      0 0 7px #ff00de,
+      0 0 8px #ff00de,
+      0 0 10px #ff00de
     );
-    filter: blur(0.4px);
   }
   95% {
     filter: saturate(0);
@@ -352,8 +363,13 @@ export default {
   transition: all 0.25s;
 }
 
+ul {
+  list-style: none;
+  width: 100%;
+}
+
 img {
-  max-width: 200px;
+  max-width: 300px;
 }
 
 p {
