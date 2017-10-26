@@ -25,13 +25,13 @@
           </v-btn>
         </v-toolbar>
         <v-list>
-          <v-list-group v-for="item in itemz" :value="item.active" v-bind:key="item.title">
+          <v-list-group v-for="item in productsList" :value="item.active" v-bind:key="item.category">
             <v-list-tile slot="item" @click="">
               <v-list-tile-action>
                 <v-icon>{{ item.action }}</v-icon>
               </v-list-tile-action>
               <v-list-tile-content>
-                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                <v-list-tile-title>{{ item.category }}</v-list-tile-title>
               </v-list-tile-content>
               <v-list-tile-action>
                 <v-icon>keyboard_arrow_down</v-icon>
@@ -88,7 +88,7 @@
           </v-list-tile-content>
         </v-list-tile>
 
-<!-- RECIPIES LIST -->
+<!-- RECIPES LIST -->
 
 <v-layout row>
     <v-flex xs12>
@@ -102,13 +102,13 @@
           </v-btn>
         </v-toolbar>
         <v-list>
-          <v-list-group v-for="item in itemz" :value="item.active" v-bind:key="item.title">
+          <v-list-group v-for="item in recipesList" :value="item.active" v-bind:key="item.category">
             <v-list-tile slot="item" @click="">
               <v-list-tile-action>
                 <v-icon>{{ item.action }}</v-icon>
               </v-list-tile-action>
               <v-list-tile-content>
-                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                <v-list-tile-title>{{ item.category }}</v-list-tile-title>
               </v-list-tile-content>
               <v-list-tile-action>
                 <v-icon>keyboard_arrow_down</v-icon>
@@ -259,7 +259,7 @@
         </v-container>
       </v-navigation-drawer>
     </main>
-    <v-footer color="pink darken-3" class="white--text" app>
+    <v-footer color="grey darken-4" class="white--text" app>
       <span>
         <small>&copy; Copyright 2017, Dawid Nawrocki</small>
       </span>
@@ -277,6 +277,70 @@ export default {
     drawerRight: true,
     right: null,
     left: null,
+    recipesList: [
+      {
+        action: "free_breakfast",
+        category: "Śniadanie",
+        items: [{ title: "Kanapka z dżemem" }]
+      },
+      {
+        action: "restaurant_menu",
+        category: "Obiad",
+        items: [{ title: "Schabowy z kapustą" }]
+      },
+      {
+        action: "restaurant",
+        category: "Kolacja",
+        items: [{ title: "Jajecznica" }]
+      },
+      {
+        action: "cake",
+        category: "Deser",
+        items: [{ title: "Lody" }]
+      },
+      {
+        action: "child_care",
+        category: "Przekąska",
+        items: [{ title: "Lizak" }]
+      }
+    ],
+    productsList: [
+      {
+        action: "chevron_right",
+        category: "Mięso i ryby",
+        items: [{ title: "Pierś z kurczaka" }]
+      },
+      {
+        action: "chevron_right",
+        category: "Nabiał i jaja",
+        items: [{ title: "Jajka przepiórcze" }]
+      },
+      {
+        action: "chevron_right",
+        category: "Pieczywo",
+        items: [{ title: "Chleb na zakwasie" }]
+      },
+      {
+        action: "chevron_right",
+        category: "Mrożonki",
+        items: [{ title: "Warzywa na patelnię" }]
+      },
+      {
+        action: "chevron_right",
+        category: "Owoce i warzywa",
+        items: [{ title: "Arbuz" }]
+      },
+       {
+        action: "chevron_right",
+        category: "Słodycze",
+        items: [{ title: "Krówki" }]
+      },
+       {
+        action: "chevron_right",
+        category: "Alkohol",
+        items: [{ title: "Piwo IPA" }]
+      }
+    ],
     product: {
       name: "",
       kcal: "",
@@ -317,71 +381,11 @@ export default {
           "https://pixabay.com/get/eb34b80f2bf4003ed95c4518b74a4e97eb72ebdd04b014419df9c078a7e4b3_640.png",
         select: "Obiad"
       }
-    ],
-
-  itemz: [
-          {
-            action: 'local_activity',
-            title: 'Attractions',
-            items: [
-              { title: 'List Item' }
-            ]
-          },
-          {
-            action: 'restaurant',
-            title: 'Dining',
-            active: true,
-            items: [
-              { title: 'Breakfast & brunch' },
-              { title: 'New American' },
-              { title: 'Sushi' }
-            ]
-          },
-          {
-            action: 'school',
-            title: 'Education',
-            items: [
-              { title: 'List Item' }
-            ]
-          },
-          {
-            action: 'directions_run',
-            title: 'Family',
-            items: [
-              { title: 'List Item' }
-            ]
-          },
-          {
-            action: 'healing',
-            title: 'Health',
-            items: [
-              { title: 'List Item' }
-            ]
-          },
-          {
-            action: 'content_cut',
-            title: 'Office',
-            items: [
-              { title: 'List Item' }
-            ]
-          },
-          {
-            action: 'local_offer',
-            title: 'Promotions',
-            items: [
-              { title: 'List Item' }
-            ]
-          }
-        ]
-
-
-
-
-
+    ]
   }),
   methods: {
- async submitRecipe() {
- await fetch(
+    async submitRecipe() {
+      await fetch(
         `https://pixabay.com/api/?key=6818598-da2281dcdfb680148ef22e7a5&q=${this
           .recipe.name}&image_type=illustration&min_width=200`
       )
