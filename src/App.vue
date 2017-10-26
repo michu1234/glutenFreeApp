@@ -417,6 +417,7 @@ export default {
       this.recipe.select = "";
     },
     submitProduct() {
+      this.adRecipeToList();
       this.displayProduct.push({
         name: this.product.name,
         directions: this.product.kcal,
@@ -432,7 +433,7 @@ export default {
       this.product.select = "";
     },
     adRecipeToList() {
-      var index;
+      let index;
       switch (this.recipe.select) {
         case "Śniadanie":
           index = 0;
@@ -447,7 +448,33 @@ export default {
           index = 3;
           break;
         case "Przekąska":
+          index = 4;
+          break;
+      }
+      this.productsList[index].items.push({ title: this.product.name });
+    }, adProductToList() {
+      let index;
+      switch (this.product.select) {
+        case  "Mięso i ryby":
           index = 0;
+          break;
+        case "Nabiał i jaja":
+          index = 1;
+          break;
+        case "Owoce i warzywa":
+          index = 2;
+          break;
+        case "Pieczywo":
+          index = 3;
+          break;
+        case "Słodycze":
+          index = 4;
+          break;
+          case "Mrożonki":
+          index = 5;
+          break;
+          case "Alkohol":
+          index = 6;
           break;
       }
       this.recipesList[index].items.push({ title: this.recipe.name });
