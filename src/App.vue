@@ -10,6 +10,54 @@
             <v-list-tile-title>Dodaj nowy produkt</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+         
+<!-- PRODUCTS LIST -->
+
+ <v-layout row>
+    <v-flex xs12>
+      <v-card>
+        <v-toolbar color="amber darken-1" light>
+          <v-toolbar-side-icon></v-toolbar-side-icon>
+          <v-toolbar-title>Produkty</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon>store_mall_directory</v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-list>
+          <v-list-group v-for="item in itemz" :value="item.active" v-bind:key="item.title">
+            <v-list-tile slot="item" @click="">
+              <v-list-tile-action>
+                <v-icon>{{ item.action }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+              </v-list-tile-content>
+              <v-list-tile-action>
+                <v-icon>keyboard_arrow_down</v-icon>
+              </v-list-tile-action>
+            </v-list-tile>
+            <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
+              <v-list-tile-content>
+                <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+              </v-list-tile-content>
+              <v-list-tile-action>
+                <v-icon>{{ subItem.action }}</v-icon>
+              </v-list-tile-action>
+            </v-list-tile>
+          </v-list-group>
+        </v-list>
+      </v-card>
+    </v-flex>
+  </v-layout>
+
+
+
+
+
+
+
+
       </v-list>
     </v-navigation-drawer>
     <v-toolbar color="pink darken-3" dark fixed app clipped-right>
@@ -39,6 +87,51 @@
             <v-list-tile-title>Dodaj nowy przepis</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+
+<!-- RECIPIES LIST -->
+
+<v-layout row>
+    <v-flex xs12>
+      <v-card>
+        <v-toolbar color="amber darken-1" light>
+          <v-toolbar-side-icon></v-toolbar-side-icon>
+          <v-toolbar-title>Przepisy</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon>room_service</v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-list>
+          <v-list-group v-for="item in itemz" :value="item.active" v-bind:key="item.title">
+            <v-list-tile slot="item" @click="">
+              <v-list-tile-action>
+                <v-icon>{{ item.action }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+              </v-list-tile-content>
+              <v-list-tile-action>
+                <v-icon>keyboard_arrow_down</v-icon>
+              </v-list-tile-action>
+            </v-list-tile>
+            <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
+              <v-list-tile-content>
+                <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+              </v-list-tile-content>
+              <v-list-tile-action>
+                <v-icon>{{ subItem.action }}</v-icon>
+              </v-list-tile-action>
+            </v-list-tile>
+          </v-list-group>
+        </v-list>
+      </v-card>
+    </v-flex>
+  </v-layout>
+
+
+
+
+
       </v-list>
     </v-navigation-drawer>
     </v-navigation-drawer>
@@ -224,7 +317,67 @@ export default {
           "https://pixabay.com/get/eb34b80f2bf4003ed95c4518b74a4e97eb72ebdd04b014419df9c078a7e4b3_640.png",
         select: "Obiad"
       }
-    ]
+    ],
+
+  itemz: [
+          {
+            action: 'local_activity',
+            title: 'Attractions',
+            items: [
+              { title: 'List Item' }
+            ]
+          },
+          {
+            action: 'restaurant',
+            title: 'Dining',
+            active: true,
+            items: [
+              { title: 'Breakfast & brunch' },
+              { title: 'New American' },
+              { title: 'Sushi' }
+            ]
+          },
+          {
+            action: 'school',
+            title: 'Education',
+            items: [
+              { title: 'List Item' }
+            ]
+          },
+          {
+            action: 'directions_run',
+            title: 'Family',
+            items: [
+              { title: 'List Item' }
+            ]
+          },
+          {
+            action: 'healing',
+            title: 'Health',
+            items: [
+              { title: 'List Item' }
+            ]
+          },
+          {
+            action: 'content_cut',
+            title: 'Office',
+            items: [
+              { title: 'List Item' }
+            ]
+          },
+          {
+            action: 'local_offer',
+            title: 'Promotions',
+            items: [
+              { title: 'List Item' }
+            ]
+          }
+        ]
+
+
+
+
+
   }),
   methods: {
  async submitRecipe() {
