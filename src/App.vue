@@ -330,12 +330,12 @@ export default {
         category: "Owoce i warzywa",
         items: [{ title: "Arbuz" }]
       },
-       {
+      {
         action: "chevron_right",
         category: "Słodycze",
         items: [{ title: "Krówki" }]
       },
-       {
+      {
         action: "chevron_right",
         category: "Alkohol",
         items: [{ title: "Piwo IPA" }]
@@ -385,6 +385,7 @@ export default {
   }),
   methods: {
     async submitRecipe() {
+      this.adRecipeToList();
       await fetch(
         `https://pixabay.com/api/?key=6818598-da2281dcdfb680148ef22e7a5&q=${this
           .recipe.name}&image_type=illustration&min_width=200`
@@ -429,6 +430,27 @@ export default {
       this.product.name = "";
       this.product.kcal = "";
       this.product.select = "";
+    },
+    adRecipeToList() {
+      var index;
+      switch (this.recipe.select) {
+        case "Śniadanie":
+          index = 0;
+          break;
+        case "Obiad":
+          index = 1;
+          break;
+        case "Kolacja":
+          index = 2;
+          break;
+        case "Deser":
+          index = 3;
+          break;
+        case "Przekąska":
+          index = 0;
+          break;
+      }
+      this.recipesList[index].items.push({ title: this.recipe.name });
     }
   },
   props: {
