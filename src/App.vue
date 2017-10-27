@@ -10,54 +10,48 @@
             <v-list-tile-title>Dodaj nowy produkt</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-         
-<!-- PRODUCTS LIST -->
 
- <v-layout row>
-    <v-flex xs12>
-      <v-card>
-        <v-toolbar color="amber darken-1" light>
-          <v-toolbar-side-icon></v-toolbar-side-icon>
-          <v-toolbar-title>Produkty</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon>store_mall_directory</v-icon>
-          </v-btn>
-        </v-toolbar>
-        <v-list>
-          <v-list-group v-for="item in productsList" :value="item.active" v-bind:key="item.category">
-            <v-list-tile slot="item" @click="">
-              <v-list-tile-action>
-                <v-icon>{{ item.action }}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>{{ item.category }}</v-list-tile-title>
-              </v-list-tile-content>
-              <v-list-tile-action>
-                <v-icon>keyboard_arrow_down</v-icon>
-              </v-list-tile-action>
-            </v-list-tile>
-            <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
-              <v-list-tile-content>
-                <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
-              </v-list-tile-content>
-              <v-list-tile-action>
-                <v-icon>{{ subItem.action }}</v-icon>
-              </v-list-tile-action>
-            </v-list-tile>
-          </v-list-group>
-        </v-list>
-      </v-card>
-    </v-flex>
-  </v-layout>
+        <!-- PRODUCTS LIST -->
 
-
-
-
-
-
-
-
+        <v-layout row>
+          <v-flex xs12>
+            <v-card>
+              <v-toolbar color="amber darken-1" light>
+                <v-toolbar-side-icon></v-toolbar-side-icon>
+                <v-toolbar-title>Produkty</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn icon>
+                  <v-icon>store_mall_directory</v-icon>
+                </v-btn>
+              </v-toolbar>
+              <v-list>
+                <v-list-group v-for="item in productsList" :value="item.active" v-bind:key="item.category">
+                  <v-list-tile slot="item" @click="">
+                    <v-list-tile-action>
+                      <v-icon>{{ item.action }}</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{ item.category }}</v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action>
+                      <v-icon>keyboard_arrow_down</v-icon>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                  <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
+                    <v-list-tile-content>
+              <div class="subItem">
+                        <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+              </div>
+                    </v-list-tile-content>
+                    <v-list-tile-action>
+                        <span>{{subItem.kcal}}</span>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                </v-list-group>
+              </v-list>
+            </v-card>
+          </v-flex>
+        </v-layout>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar color="pink darken-3" dark fixed app clipped-right>
@@ -66,7 +60,7 @@
         <div class="logo__box">
           <img class="logo" src="../src/assets/food-logo.png">
           <p>
-            Gluten Free 
+            Gluten Free
             <br/>
             <small>
               <span class="text--red">for...</span>
@@ -88,86 +82,61 @@
           </v-list-tile-content>
         </v-list-tile>
 
-<!-- RECIPES LIST -->
+        <!-- RECIPES LIST -->
 
-<v-layout row>
-    <v-flex xs12>
-      <v-card>
-        <v-toolbar color="amber darken-1" light>
-          <v-toolbar-side-icon></v-toolbar-side-icon>
-          <v-toolbar-title>Przepisy</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon>room_service</v-icon>
-          </v-btn>
-        </v-toolbar>
-        <v-list>
-          <v-list-group v-for="item in recipesList" :value="item.active" v-bind:key="item.category">
-            <v-list-tile slot="item" @click="">
-              <v-list-tile-action>
-                <v-icon>{{ item.action }}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>{{ item.category }}</v-list-tile-title>
-              </v-list-tile-content>
-              <v-list-tile-action>
-                <v-icon>keyboard_arrow_down</v-icon>
-              </v-list-tile-action>
-            </v-list-tile>
-            <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
-              <v-list-tile-content>
-                <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
-              </v-list-tile-content>
-              <v-list-tile-action>
-                <v-icon>{{ subItem.action }}</v-icon>
-              </v-list-tile-action>
-            </v-list-tile>
-          </v-list-group>
-        </v-list>
-      </v-card>
-    </v-flex>
-  </v-layout>
-
-
-
-
-
+        <v-layout row>
+          <v-flex xs12>
+            <v-card>
+              <v-toolbar color="amber darken-1" light>
+                <v-toolbar-side-icon></v-toolbar-side-icon>
+                <v-toolbar-title>Przepisy</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn icon>
+                  <v-icon>room_service</v-icon>
+                </v-btn>
+              </v-toolbar>
+              <v-list>
+                <v-list-group v-for="item in recipesList" :value="item.active" v-bind:key="item.category">
+                  <v-list-tile slot="item" @click="">
+                    <v-list-tile-action>
+                      <v-icon>{{ item.action }}</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{ item.category }}</v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action>
+                      <v-icon>keyboard_arrow_down</v-icon>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                  <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action>
+                      <v-icon>{{ subItem.action }}</v-icon>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                </v-list-group>
+              </v-list>
+            </v-card>
+          </v-flex>
+        </v-layout>
       </v-list>
     </v-navigation-drawer>
     </v-navigation-drawer>
     <main>
       <v-navigation-drawer temporary v-model="left" fixed>
 
-<!-- recipe -->
+        <!-- RECIPE INPUT -->
 
         <v-container>
           <form>
-            <v-text-field
-              label="Przepis na..."
-              v-model="recipe.name"
-              :counter="10"
-              required
-            ></v-text-field>
-            <v-text-field
-              label="Składniki"
-              v-model="recipe.ingridients"
-              required
-            ></v-text-field>
-             <v-layout>
-                  <v-text-field
-                    name="input-7-1"
-                    label="Sposób wykonania"
-                    v-model="recipe.directions"
-                    :counter="100"
-                    multi-line
-                  ></v-text-field>
-              </v-layout>
-            <v-select
-              label="Kategoria"
-              v-model="recipe.select"
-              :items="recipe.items"
-              required
-            ></v-select>
+            <v-text-field label="Przepis na..." v-model="recipe.name" :counter="10" required></v-text-field>
+            <v-text-field label="Składniki" v-model="recipe.ingridients" required></v-text-field>
+            <v-layout>
+              <v-text-field name="input-7-1" label="Sposób wykonania" v-model="recipe.directions" :counter="100" multi-line></v-text-field>
+            </v-layout>
+            <v-select label="Kategoria" v-model="recipe.select" :items="recipe.items" required></v-select>
             <v-btn @click="submitRecipe">Dodaj</v-btn>
             <v-btn @click="clearRecipe">Wyczyść</v-btn>
           </form>
@@ -175,87 +144,56 @@
       </v-navigation-drawer>
       <v-content>
         <v-container fluid>
-          <v-layout  align-center>
-           
-    
+          <v-layout align-center>
 
+            <!-- RECIPE DISPLAY -->
 
-
-
-<ul>
-  <li v-for="(r, index) in displayRecipe" :key="index">
-    <span class="display-3">{{r.name}} </span> || <span class="title"> {{r.select}}</span>
-     <v-layout row wrap>
-       <v-flex md6>
-          <v-card class="text-md-center" light color="grey lighten-4 mr-2 mb-2">
-            <v-card-text class="px-2"><img :src="r.url" class="logo--lighten" alt=""></v-card-text>
-          </v-card>
-        </v-flex>
-  
-       
-       
-       
-         <v-flex md6>
-          <v-card light color="grey lighten-4">
-            <v-card-text class="px-2">
-              <h2 class="title">SKŁADNIKI:</h2>
-              {{r.ingridients}}
-            </v-card-text>
-          </v-card>
-        </v-flex>
-     </v-layout>
-    
-     <v-flex xs12>
-        <v-card light color="grey lighten-4">
-          <v-card-text class="px-2">
-            <h2 class="title">PRZYGOTOWANIE:</h2>
-         {{r.directions}}
-          </v-card-text>
-        </v-card>
-      </v-flex>
-    
-    
-    
-    
-    
-    
-    
-    
-</li>
-</ul>
-
-
-
-
+            <ul>
+              <li v-for="(r, index) in displayRecipe" :key="index">
+                <span class="display-3">{{r.name}} </span> ||
+                <span class="title"> {{r.select}}</span>
+                <v-layout row wrap>
+                  <v-flex md6>
+                    <v-card class="text-md-center" light color="grey lighten-4 mr-2 mb-2">
+                      <v-card-text class="px-2">
+                        <img :src="r.url" class="logo--lighten" alt="">
+                      </v-card-text>
+                    </v-card>
+                  </v-flex>
+                  <v-flex md6>
+                    <v-card light color="grey lighten-4">
+                      <v-card-text class="px-2">
+                        <h2 class="title">SKŁADNIKI:</h2>
+                        {{r.ingridients}}
+                      </v-card-text>
+                    </v-card>
+                  </v-flex>
+                </v-layout>
+                <v-flex xs12>
+                  <v-card light color="grey lighten-4">
+                    <v-card-text class="px-2">
+                      <h2 class="title">PRZYGOTOWANIE:</h2>
+                      {{r.directions}}
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+              </li>
+            </ul>
           </v-layout>
         </v-container>
       </v-content>
       <v-navigation-drawer right temporary v-model="right" fixed>
 
-<!-- PRODUKTY -->
+        <!-- PRODUCTS INPUT -->
 
         <v-container>
-        <form>
-          <v-text-field
-            label="Nazwa produktu"
-            v-model="product.name"
-            :counter="10"
-            required
-          ></v-text-field>
-          <v-text-field
-            label="Kcal w 100g"
-            v-model="product.kcal"
-            required
-          ></v-text-field>
-          <v-select
-            label="Kategoria"
-            v-model="product.select"
-            :items="product.items"
-            required
-          ></v-select>
-          <v-btn @click="submitProduct">Dodaj</v-btn>
-          <v-btn @click="clearProduct">Wyczyść</v-btn>
-        </form>
+          <form>
+            <v-text-field label="Nazwa produktu" v-model="product.name" :counter="10" required></v-text-field>
+            <v-text-field label="Kcal w 100g" v-model="product.kcal" required></v-text-field>
+            <v-select label="Kategoria" v-model="product.select" :items="product.items" required></v-select>
+            <v-btn @click="submitProduct">Dodaj</v-btn>
+            <v-btn @click="clearProduct">Wyczyść</v-btn>
+          </form>
         </v-container>
       </v-navigation-drawer>
     </main>
@@ -271,330 +209,348 @@
 
 
 <script>
-export default {
-  data: () => ({
-    drawer: true,
-    drawerRight: true,
-    right: null,
-    left: null,
-    imagePlaceholder: "https://mezmiz.com/media/1_0b3304fb6a6650ea6732ca231338659d.png",
-    recipesList: [
-      {
-        action: "free_breakfast",
-        category: "Śniadanie",
-        items: [{ title: "Kanapka z dżemem" }]
+  export default {
+    data: () => ({
+      drawer: true,
+      drawerRight: true,
+      right: null,
+      left: null,
+      imagePlaceholder: "https://mezmiz.com/media/1_0b3304fb6a6650ea6732ca231338659d.png",
+      recipesList: [{
+          action: "free_breakfast",
+          category: "Śniadanie",
+          items: [{
+            title: "Kanapka z dżemem"
+          }]
+        },
+        {
+          action: "restaurant_menu",
+          category: "Obiad",
+          items: [{
+            title: "Schabowy z kapustą"
+          }]
+        },
+        {
+          action: "restaurant",
+          category: "Kolacja",
+          items: [{
+            title: "Jajecznica"
+          }]
+        },
+        {
+          action: "cake",
+          category: "Deser",
+          items: [{
+            title: "Lody"
+          }]
+        },
+        {
+          action: "child_care",
+          category: "Przekąska",
+          items: [{
+            title: "Lizak"
+          }]
+        }
+      ],
+      productsList: [{
+          action: "chevron_right",
+          category: "Mięso i ryby",
+          items: [{
+            title: "Pierś z kurczaka", kcal: "290 kcal"
+          }]
+        },
+        {
+          action: "chevron_right",
+          category: "Nabiał i jaja",
+          items: [{
+            title: "Jajka przepiórcze", kcal: "80 kcal"
+          }]
+        },
+        {
+          action: "chevron_right",
+          category: "Pieczywo",
+          items: [{
+            title: "Chleb na zakwasie", kcal: "20 kcal"
+          }]
+        },
+        {
+          action: "chevron_right",
+          category: "Mrożonki",
+          items: [{
+            title: "Warzywa na patelnię", kcal: "200 kcal"
+          }]
+        },
+        {
+          action: "chevron_right",
+          category: "Owoce i warzywa",
+          items: [{
+            title: "Arbuz", kcal: "100 kcal"
+          }]
+        },
+        {
+          action: "chevron_right",
+          category: "Słodycze",
+          items: [{
+            title: "Krówki", kcal: "210 kcal"
+          }]
+        },
+        {
+          action: "chevron_right",
+          category: "Alkohol",
+          items: [{
+            title: "Piwo IPA", kcal: "250 kcal"
+          }]
+        }
+      ],
+      product: {
+        name: "",
+        kcal: "",
+        select: "",
+        items: [
+          "Mięso i ryby",
+          "Nabiał i jaja",
+          "Owoce i warzywa",
+          "Pieczywo",
+          "Słodycze",
+          "Mrożonki",
+          "Alkohol"
+        ]
       },
-      {
-        action: "restaurant_menu",
-        category: "Obiad",
-        items: [{ title: "Schabowy z kapustą" }]
+      recipe: {
+        name: "",
+        ingridients: [],
+        directions: "",
+        select: "",
+        url: "",
+        items: ["Śniadanie", "Obiad", "Kolacja", "Deser", "Przekąska"]
       },
-      {
-        action: "restaurant",
-        category: "Kolacja",
-        items: [{ title: "Jajecznica" }]
-      },
-      {
-        action: "cake",
-        category: "Deser",
-        items: [{ title: "Lody" }]
-      },
-      {
-        action: "child_care",
-        category: "Przekąska",
-        items: [{ title: "Lizak" }]
-      }
-    ],
-    productsList: [
-      {
-        action: "chevron_right",
-        category: "Mięso i ryby",
-        items: [{ title: "Pierś z kurczaka" }]
-      },
-      {
-        action: "chevron_right",
-        category: "Nabiał i jaja",
-        items: [{ title: "Jajka przepiórcze" }]
-      },
-      {
-        action: "chevron_right",
-        category: "Pieczywo",
-        items: [{ title: "Chleb na zakwasie" }]
-      },
-      {
-        action: "chevron_right",
-        category: "Mrożonki",
-        items: [{ title: "Warzywa na patelnię" }]
-      },
-      {
-        action: "chevron_right",
-        category: "Owoce i warzywa",
-        items: [{ title: "Arbuz" }]
-      },
-      {
-        action: "chevron_right",
-        category: "Słodycze",
-        items: [{ title: "Krówki" }]
-      },
-      {
-        action: "chevron_right",
-        category: "Alkohol",
-        items: [{ title: "Piwo IPA" }]
-      }
-    ],
-    product: {
-      name: "",
-      kcal: "",
-      select: "",
-      items: [
-        "Mięso i ryby",
-        "Nabiał i jaja",
-        "Owoce i warzywa",
-        "Pieczywo",
-        "Słodycze",
-        "Mrożonki",
-        "Alkohol"
-      ]
-    },
-    recipe: {
-      name: "",
-      ingridients: [],
-      directions: "",
-      select: "",
-      url: "",
-      items: ["Śniadanie", "Obiad", "Kolacja", "Deser", "Przekąska"]
-    },
-    displayProduct: [
-      {
+      displayProduct: [{
         name: "Pomidor",
         kcal: "22",
         select: "Owoce i warzywa"
-      }
-    ],
-    displayRecipe: [
-      {
+      }],
+      displayRecipe: [{
         name: "Pomidorowa",
-        ingridients:
-          "Przecier pomidorowy, woda, przyprawy, bulion, makaron świderki",
-        directions:
-          "Dokładnie umyj swoje pomidory... Zupę pomidorową najczęściej przygotowuje się z ugotowanego dzień wcześniej rosołu. Do rosołu (może być zimny) dodajemy koncentrat pomidorowy i śmietanę i dokładnie mieszamy. Podgrzewamy na małym ogniu co chwilę mieszając. Poniżej przepis jak przygotować zupę pomidorową od samego początku.",
-        url:
-          "http://sklepgarmazeryjnyzosia.pl/wp-content/uploads/2015/12/zupa-pomidorowa1.jpg",
+        ingridients: "Przecier pomidorowy, woda, przyprawy, bulion, makaron świderki",
+        directions: "Dokładnie umyj swoje pomidory... Zupę pomidorową najczęściej przygotowuje się z ugotowanego dzień wcześniej rosołu. Do rosołu (może być zimny) dodajemy koncentrat pomidorowy i śmietanę i dokładnie mieszamy. Podgrzewamy na małym ogniu co chwilę mieszając. Poniżej przepis jak przygotować zupę pomidorową od samego początku.",
+        url: "http://sklepgarmazeryjnyzosia.pl/wp-content/uploads/2015/12/zupa-pomidorowa1.jpg",
         select: "Obiad"
-      }
-    ]
-  }),
-  methods: {
-    async submitRecipe() {
-      await fetch(
-        `https://pixabay.com/api/?key=6818598-da2281dcdfb680148ef22e7a5&q=${this
+      }]
+    }),
+    methods: {
+      async submitRecipe() {
+        await fetch(
+            `https://pixabay.com/api/?key=6818598-da2281dcdfb680148ef22e7a5&q=${this
           .recipe.name}&image_type=illustration&min_width=200`
-      )
-        .then(function(response) {
-          return response.json();
-        })
-        .then(data => {
-
-            if (data.hits[0] === undefined){
+          )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(data => {
+            if (data.hits[0] === undefined) {
               this.recipe.url = this.imagePlaceholder;
+            } else {
+              this.recipe.url = data.hits[0].webformatURL;
             }
-            else {
-               this.recipe.url = data.hits[0].webformatURL;
-            }
+          });
+        this.displayRecipe.push({
+          name: this.recipe.name,
+          directions: this.recipe.directions,
+          ingridients: this.recipe.ingridients,
+          url: this.recipe.url,
+          select: this.recipe.select
         });
-      this.displayRecipe.push({
-        name: this.recipe.name,
-        directions: this.recipe.directions,
-        ingridients: this.recipe.ingridients,
-        url: this.recipe.url,
-        select: this.recipe.select
-      });
-      this.adRecipeToList(); 
-      this.recipe.name = "";
-      this.recipe.ingridients = "";
-      this.recipe.directions = "";
-      this.recipe.url = "";
-      this.recipe.select = "";
-    },
-    clearRecipe() {
-      this.recipe.name = "";
-      this.recipe.ingridients = "";
-      this.recipe.directions = "";
-      this.recipe.url = "";
-      this.recipe.select = "";
-    },
-    submitProduct() {
-      this.adProductToList();
-      this.displayProduct.push({
-        name: this.product.name,
-        directions: this.product.kcal,
-        select: this.product.select
-      });
-      this.product.name = "";
-      this.product.kcal = "";
-      this.product.select = "";
-    },
-    clearProduct() {
-      this.product.name = "";
-      this.product.kcal = "";
-      this.product.select = "";
-    },
-    adRecipeToList() {
-      let index;
-      switch (this.recipe.select) {
-        case "Śniadanie":
-          index = 0;
-          break;
-        case "Obiad":
-          index = 1;
-          break;
-        case "Kolacja":
-          index = 2;
-          break;
-        case "Deser":
-          index = 3;
-          break;
-        case "Przekąska":
-          index = 4;
-          break;
-      }
-      this.recipesList[index].items.push({ title: this.recipe.name });
-    }, adProductToList() {
-      let index;
-      switch (this.product.select) {
-        case  "Mięso i ryby":
-          index = 0;
-          break;
-        case "Nabiał i jaja":
-          index = 1;
-          break;
-        case "Owoce i warzywa":
-          index = 2;
-          break;
-        case "Pieczywo":
-          index = 3;
-          break;
-        case "Słodycze":
-          index = 4;
-          break;
+        this.adRecipeToList();
+        this.recipe.name = "";
+        this.recipe.ingridients = "";
+        this.recipe.directions = "";
+        this.recipe.url = "";
+        this.recipe.select = "";
+      },
+      clearRecipe() {
+        this.recipe.name = "";
+        this.recipe.ingridients = "";
+        this.recipe.directions = "";
+        this.recipe.url = "";
+        this.recipe.select = "";
+      },
+      submitProduct() {
+        this.adProductToList();
+        this.displayProduct.push({
+          name: this.product.name,
+          directions: this.product.kcal,
+          select: this.product.select
+        });
+        this.product.name = "";
+        this.product.kcal = "";
+        this.product.select = "";
+      },
+      clearProduct() {
+        this.product.name = "";
+        this.product.kcal = "";
+        this.product.select = "";
+      },
+      adRecipeToList() {
+        let index;
+        switch (this.recipe.select) {
+          case "Śniadanie":
+            index = 0;
+            break;
+          case "Obiad":
+            index = 1;
+            break;
+          case "Kolacja":
+            index = 2;
+            break;
+          case "Deser":
+            index = 3;
+            break;
+          case "Przekąska":
+            index = 4;
+            break;
+        }
+        this.recipesList[index].items.push({
+          title: this.recipe.name
+        });
+      },
+      adProductToList() {
+        let index;
+        switch (this.product.select) {
+          case "Mięso i ryby":
+            index = 0;
+            break;
+          case "Nabiał i jaja":
+            index = 1;
+            break;
+          case "Owoce i warzywa":
+            index = 2;
+            break;
+          case "Pieczywo":
+            index = 3;
+            break;
+          case "Słodycze":
+            index = 4;
+            break;
           case "Mrożonki":
-          index = 5;
-          break;
+            index = 5;
+            break;
           case "Alkohol":
-          index = 6;
-          break;
+            index = 6;
+            break;
+        }
+        this.productsList[index].items.push({
+          title: this.product.name
+        });
       }
-      this.productsList[index].items.push({ title: this.product.name });
+    },
+    props: {
+      source: String
     }
-  },
-  props: {
-    source: String
-  }
-};
+  };
+
 </script>
 
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Chewy");
+  @import url("https://fonts.googleapis.com/css?family=Chewy");
 
-.logo {
-  width: 100px;
-  vertical-align: bottom;
-  animation: logo_animation 8s 5s infinite;
-}
+  .logo {
+    width: 100px;
+    vertical-align: bottom;
+    animation: logo_animation 8s 5s infinite;
+  }
 
-@keyframes logo_animation {
-  0% {
-    filter: saturate(0);
-  }
-  78% {
-    filter: saturate(0);
-  }
-  79% {
-    filter: saturate(100%);
-    filter: drop-shadow(
-      0 0 1px rgba(255, 255, 255, 1),
+  @keyframes logo_animation {
+    0% {
+      filter: saturate(0);
+    }
+    78% {
+      filter: saturate(0);
+    }
+    79% {
+      filter: saturate(100%);
+      filter: drop-shadow( 0 0 1px rgba(255, 255, 255, 1),
       0 0 2px rgba(255, 255, 255, 1),
       0 0 3px rgba(255, 255, 255, 1),
       0 0 4px #ff00de,
       0 0 7px #ff00de,
       0 0 8px #ff00de,
-      0 0 10px #ff00de
-    );
-  }
-  80% {
-    filter: saturate(0);
-  }
-  91% {
-    filter: saturate(0);
-  }
-  92% {
-    filter: saturate(100%);
-    filter: drop-shadow(
-      0 0 1px rgba(255, 255, 255, 1),
+      0 0 10px #ff00de);
+    }
+    80% {
+      filter: saturate(0);
+    }
+    91% {
+      filter: saturate(0);
+    }
+    92% {
+      filter: saturate(100%);
+      filter: drop-shadow( 0 0 1px rgba(255, 255, 255, 1),
       0 0 2px rgba(255, 255, 255, 1),
       0 0 3px rgba(255, 255, 255, 1),
       0 0 4px #ff00de,
       0 0 7px #ff00de,
       0 0 8px #ff00de,
-      0 0 10px #ff00de
-    );
-  }
-  93% {
-    filter: saturate(0);
-  }
-  94% {
-    filter: saturate(100%);
-    filter: drop-shadow(
-      0 0 1px rgba(255, 255, 255, 1),
+      0 0 10px #ff00de);
+    }
+    93% {
+      filter: saturate(0);
+    }
+    94% {
+      filter: saturate(100%);
+      filter: drop-shadow( 0 0 1px rgba(255, 255, 255, 1),
       0 0 2px rgba(255, 255, 255, 1),
       0 0 3px rgba(255, 255, 255, 1),
       0 0 4px #ff00de,
       0 0 7px #ff00de,
       0 0 8px #ff00de,
-      0 0 10px #ff00de
-    );
+      0 0 10px #ff00de);
+    }
+    95% {
+      filter: saturate(0);
+    }
+    100% {
+      filter: saturate(0);
+    }
   }
-  95% {
-    filter: saturate(0);
+
+  .subItem {
+    display: flex;
   }
-  100% {
-    filter: saturate(0);
+
+  .logo__box {
+    display: inline-block;
+    line-height: 16px;
+    font-family: "Chewy", cursive;
+
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7);
   }
-}
 
-.logo__box {
-  display: inline-block;
-  line-height: 16px;
-  font-family: "Chewy", cursive;
+  .logo:hover {
+    filter: saturate(100%);
+    transition: all 0.25s;
+  }
 
-  text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7);
-}
+  .logo--lighten {
+    filter: brightness(140%);
+  }
 
-.logo:hover {
-  filter: saturate(100%);
-  transition: all 0.25s;
-}
+  ul {
+    list-style: none;
+    width: 100%;
+  }
 
-.logo--lighten {
-  filter: brightness(140%);
-}
+  img {
+    max-width: 300px;
+  }
 
-ul {
-  list-style: none;
-  width: 100%;
-}
+  p {
+    display: inline-block;
+  }
 
-img {
-  max-width: 300px;
-}
+  .text--red {
+    color: gold;
+  }
 
-p {
-  display: inline-block;
-}
-
-.text--red {
-  color: gold;
-}
 </style>
 
