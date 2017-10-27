@@ -66,7 +66,7 @@
         <div class="logo__box">
           <img class="logo" src="../src/assets/food-logo.png">
           <p>
-            Gluten Free
+            Gluten Free 
             <br/>
             <small>
               <span class="text--red">for...</span>
@@ -187,11 +187,11 @@
     <span class="display-3">{{r.name}} </span> || <span class="title"> {{r.select}}</span>
      <v-layout row wrap>
        <v-flex md6>
-          <v-card light color="grey lighten-4 mr-2 mb-2">
-            <v-card-text class="px-2"><img :src="r.url" alt=""></v-card-text>
+          <v-card class="text-md-center" light color="grey lighten-4 mr-2 mb-2">
+            <v-card-text class="px-2"><img :src="r.url" class="logo--lighten" alt=""></v-card-text>
           </v-card>
         </v-flex>
-       
+  
        
        
        
@@ -277,6 +277,7 @@ export default {
     drawerRight: true,
     right: null,
     left: null,
+    imagePlaceholder: "https://mezmiz.com/media/1_0b3304fb6a6650ea6732ca231338659d.png",
     recipesList: [
       {
         action: "free_breakfast",
@@ -378,14 +379,13 @@ export default {
         directions:
           "Dokładnie umyj swoje pomidory... Zupę pomidorową najczęściej przygotowuje się z ugotowanego dzień wcześniej rosołu. Do rosołu (może być zimny) dodajemy koncentrat pomidorowy i śmietanę i dokładnie mieszamy. Podgrzewamy na małym ogniu co chwilę mieszając. Poniżej przepis jak przygotować zupę pomidorową od samego początku.",
         url:
-          "https://pixabay.com/get/eb34b80f2bf4003ed95c4518b74a4e97eb72ebdd04b014419df9c078a7e4b3_640.png",
+          "http://sklepgarmazeryjnyzosia.pl/wp-content/uploads/2015/12/zupa-pomidorowa1.jpg",
         select: "Obiad"
       }
     ]
   }),
   methods: {
     async submitRecipe() {
-      this.adRecipeToList();
       await fetch(
         `https://pixabay.com/api/?key=6818598-da2281dcdfb680148ef22e7a5&q=${this
           .recipe.name}&image_type=illustration&min_width=200`
@@ -394,7 +394,13 @@ export default {
           return response.json();
         })
         .then(data => {
-          this.recipe.url = data.hits[0].webformatURL;
+
+            if (data.hits[0] === undefined){
+              this.recipe.url = this.imagePlaceholder;
+            }
+            else {
+               this.recipe.url = data.hits[0].webformatURL;
+            }
         });
       this.displayRecipe.push({
         name: this.recipe.name,
@@ -403,6 +409,7 @@ export default {
         url: this.recipe.url,
         select: this.recipe.select
       });
+      this.adRecipeToList(); 
       this.recipe.name = "";
       this.recipe.ingridients = "";
       this.recipe.directions = "";
@@ -417,7 +424,7 @@ export default {
       this.recipe.select = "";
     },
     submitProduct() {
-      this.adRecipeToList();
+      this.adProductToList();
       this.displayProduct.push({
         name: this.product.name,
         directions: this.product.kcal,
@@ -451,7 +458,7 @@ export default {
           index = 4;
           break;
       }
-      this.productsList[index].items.push({ title: this.product.name });
+      this.recipesList[index].items.push({ title: this.recipe.name });
     }, adProductToList() {
       let index;
       switch (this.product.select) {
@@ -477,7 +484,7 @@ export default {
           index = 6;
           break;
       }
-      this.recipesList[index].items.push({ title: this.recipe.name });
+      this.productsList[index].items.push({ title: this.product.name });
     }
   },
   props: {
@@ -567,6 +574,10 @@ export default {
 .logo:hover {
   filter: saturate(100%);
   transition: all 0.25s;
+}
+
+.logo--lighten {
+  filter: brightness(140%);
 }
 
 ul {
