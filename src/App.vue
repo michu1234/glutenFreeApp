@@ -109,9 +109,16 @@
                     </v-list-tile-action>
                   </v-list-tile>
                   <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
+                      
                     <v-list-tile-content>
-                      <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+               <div class="subItem">
+                 
+                        <v-icon>navigate_next</v-icon>
+                        <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+                    
+               </div>
                     </v-list-tile-content>
+                   
                     <v-list-tile-action>
                       <v-icon>{{ subItem.action }}</v-icon>
                     </v-list-tile-action>
@@ -208,6 +215,16 @@
 </template>
 
 
+
+
+
+
+
+
+
+
+
+
 <script>
   export default {
     data: () => ({
@@ -221,6 +238,12 @@
           category: "Śniadanie",
           items: [{
             title: "Kanapka z dżemem"
+          },
+          {
+            title: "Płatki owsiane"
+          },
+          {
+            title: "Jogurt z bananem"
           }]
         },
         {
@@ -347,7 +370,7 @@
       async submitRecipe() {
         await fetch(
             `https://pixabay.com/api/?key=6818598-da2281dcdfb680148ef22e7a5&q=${this
-          .recipe.name}&image_type=illustration&min_width=200`
+          .recipe.name}&image_type=photo&min_width=200`
           )
           .then(function (response) {
             return response.json();
