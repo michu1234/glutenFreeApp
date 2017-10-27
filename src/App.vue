@@ -422,16 +422,16 @@
           case "Nabiał i jaja":
             index = 1;
             break;
-          case "Owoce i warzywa":
+          case "Pieczywo":
             index = 2;
             break;
-          case "Pieczywo":
+          case "Mrożonki":
             index = 3;
             break;
-          case "Słodycze":
+          case "Owoce i warzywa":
             index = 4;
             break;
-          case "Mrożonki":
+          case "Słodycze":
             index = 5;
             break;
           case "Alkohol":
@@ -439,7 +439,8 @@
             break;
         }
         this.productsList[index].items.push({
-          title: this.product.name
+          title: this.product.name,
+          kcal: this.product.kcal + " kcal"
         });
       }
     },
