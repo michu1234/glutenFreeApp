@@ -40,7 +40,7 @@
                   <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
                     <v-list-tile-content>
               <div class="subItem">
-                        <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+                        <v-list-tile-title><v-icon class="caption">near_me </v-icon> {{ subItem.title }}</v-list-tile-title>
               </div>
                     </v-list-tile-content>
                     <v-list-tile-action>
@@ -264,6 +264,12 @@
           category: "Nabiał i jaja",
           items: [{
             title: "Jajka przepiórcze", kcal: "80 kcal"
+          },
+          {
+            title: "Jajka kurze", kcal: "40 kcal"
+          },
+          {
+            title: "Jajka kacze", kcal: "60 kcal"
           }]
         },
         {
