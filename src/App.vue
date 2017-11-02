@@ -16,7 +16,7 @@
         <v-layout row>
           <v-flex xs12>
             <v-card>
-              <v-toolbar color="amber darken-1" light>
+              <v-toolbar color="purple lighten-3" light>
                 <v-toolbar-side-icon></v-toolbar-side-icon>
                 <v-toolbar-title>Produkty</v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -39,12 +39,13 @@
                   </v-list-tile>
                   <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
                     <v-list-tile-content>
-              <div class="subItem">
-                        <v-list-tile-title><v-icon class="caption">near_me </v-icon> {{ subItem.title }}</v-list-tile-title>
-              </div>
+                      <div class="subItem">
+                        <v-list-tile-title>
+                          <v-icon class="caption">near_me </v-icon> {{ subItem.title }}</v-list-tile-title>
+                      </div>
                     </v-list-tile-content>
                     <v-list-tile-action>
-                        <span>{{subItem.kcal}}</span>
+                      <span>{{subItem.kcal}}</span>
                     </v-list-tile-action>
                   </v-list-tile>
                 </v-list-group>
@@ -54,16 +55,16 @@
         </v-layout>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="pink darken-3" dark fixed app clipped-right>
+    <v-toolbar color="purple lighten-3" dark fixed app clipped-right>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>
         <div class="logo__box">
           <img class="logo" src="../src/assets/food-logo.png">
           <p>
-            Gluten Free
+            Gluten Free Recipes
             <br/>
             <small>
-              <span class="text--red">for...</span>
+              <span class="text--red">and products...</span>
             </small>
           </p>
         </div>
@@ -87,7 +88,7 @@
         <v-layout row>
           <v-flex xs12>
             <v-card>
-              <v-toolbar color="amber darken-1" light>
+              <v-toolbar color="pink lighten-3" light>
                 <v-toolbar-side-icon></v-toolbar-side-icon>
                 <v-toolbar-title>Przepisy</v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -109,16 +110,16 @@
                     </v-list-tile-action>
                   </v-list-tile>
                   <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
-                      
+
                     <v-list-tile-content>
-               <div class="subItem">
-                 
+                      <div class="subItem">
+
                         <v-icon>navigate_next</v-icon>
                         <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
-                    
-               </div>
+
+                      </div>
                     </v-list-tile-content>
-                   
+
                     <v-list-tile-action>
                       <v-icon>{{ subItem.action }}</v-icon>
                     </v-list-tile-action>
@@ -237,14 +238,15 @@
           action: "free_breakfast",
           category: "Śniadanie",
           items: [{
-            title: "Kanapka z dżemem"
-          },
-          {
-            title: "Płatki owsiane"
-          },
-          {
-            title: "Jogurt z bananem"
-          }]
+              title: "Kanapka z dżemem"
+            },
+            {
+              title: "Płatki owsiane"
+            },
+            {
+              title: "Jogurt z bananem"
+            }
+          ]
         },
         {
           action: "restaurant_menu",
@@ -279,55 +281,65 @@
           action: "chevron_right",
           category: "Mięso i ryby",
           items: [{
-            title: "Pierś z kurczaka", kcal: "290 kcal"
+            title: "Pierś z kurczaka",
+            kcal: "290 kcal"
           }]
         },
         {
           action: "chevron_right",
           category: "Nabiał i jaja",
           items: [{
-            title: "Jajka przepiórcze", kcal: "80 kcal"
-          },
-          {
-            title: "Jajka kurze", kcal: "40 kcal"
-          },
-          {
-            title: "Jajka kacze", kcal: "60 kcal"
-          }]
+              title: "Jajka przepiórcze",
+              kcal: "80 kcal"
+            },
+            {
+              title: "Jajka kurze",
+              kcal: "40 kcal"
+            },
+            {
+              title: "Jajka kacze",
+              kcal: "60 kcal"
+            }
+          ]
         },
         {
           action: "chevron_right",
           category: "Pieczywo",
           items: [{
-            title: "Chleb na zakwasie", kcal: "20 kcal"
+            title: "Chleb na zakwasie",
+            kcal: "20 kcal"
           }]
         },
         {
           action: "chevron_right",
           category: "Mrożonki",
           items: [{
-            title: "Warzywa na patelnię", kcal: "200 kcal"
+            title: "Warzywa na patelnię",
+            kcal: "200 kcal"
           }]
         },
         {
           action: "chevron_right",
           category: "Owoce i warzywa",
           items: [{
-            title: "Arbuz", kcal: "100 kcal"
+            title: "Arbuz",
+            kcal: "100 kcal"
           }]
         },
         {
           action: "chevron_right",
           category: "Słodycze",
           items: [{
-            title: "Krówki", kcal: "210 kcal"
+            title: "Krówki",
+            kcal: "210 kcal"
           }]
         },
         {
           action: "chevron_right",
           category: "Alkohol",
           items: [{
-            title: "Piwo IPA", kcal: "250 kcal"
+            title: "Piwo IPA",
+            kcal: "250 kcal"
           }]
         }
       ],
@@ -389,6 +401,20 @@
           url: this.recipe.url,
           select: this.recipe.select
         });
+
+
+        fetch('https://gluten-free-app.firebaseio.com/recipe.json', {
+          method: 'post',
+          body: JSON.stringify({
+            name: this.recipe.name,
+            directions: this.recipe.directions,
+            ingridients: this.recipe.ingridients,
+            url: this.recipe.url,
+            select: this.recipe.select
+          })
+        });
+
+
         this.adRecipeToList();
         this.recipe.name = "";
         this.recipe.ingridients = "";
@@ -409,6 +435,14 @@
           name: this.product.name,
           directions: this.product.kcal,
           select: this.product.select
+        });
+        fetch('https://gluten-free-app.firebaseio.com/product.json', {
+          method: 'post',
+          body: JSON.stringify({
+             name: this.product.name,
+             directions: this.product.kcal,
+             select: this.product.select
+          })
         });
         this.product.name = "";
         this.product.kcal = "";
@@ -479,6 +513,24 @@
   };
 
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <style scoped>
@@ -579,7 +631,7 @@
   }
 
   .text--red {
-    color: gold;
+    color: #fffadb;
   }
 
 </style>
