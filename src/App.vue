@@ -16,7 +16,7 @@
         <v-layout row>
           <v-flex xs12>
             <v-card>
-              <v-toolbar color="purple lighten-3" light>
+              <v-toolbar color="grey lighten-2" light>
                 <v-toolbar-side-icon></v-toolbar-side-icon>
                 <v-toolbar-title>Produkty</v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -55,7 +55,7 @@
         </v-layout>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="purple lighten-3" dark fixed app clipped-right>
+    <v-toolbar color="grey lighten-1" dark fixed app clipped-right>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>
         <div class="logo__box">
@@ -70,6 +70,16 @@
         </div>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+       <v-layout row align-center style="max-width: 250px">
+        <v-text-field
+          placeholder="Search..."
+          single-line
+          append-icon="search"
+          :append-icon-cb="() => {}"
+          class="white--text"
+          hide-details
+        ></v-text-field>
+      </v-layout>
       <v-toolbar-side-icon @click.stop="drawerRight = !drawerRight"></v-toolbar-side-icon>
     </v-toolbar>
     <v-navigation-drawer persistent v-model="drawer" enable-resize-watcher app>
@@ -88,7 +98,7 @@
         <v-layout row>
           <v-flex xs12>
             <v-card>
-              <v-toolbar color="pink lighten-3" light>
+              <v-toolbar color="pink darken-4" dark> 
                 <v-toolbar-side-icon></v-toolbar-side-icon>
                 <v-toolbar-title>Przepisy</v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -234,6 +244,12 @@
       right: null,
       left: null,
       imagePlaceholder: "https://mezmiz.com/media/1_0b3304fb6a6650ea6732ca231338659d.png",
+
+
+
+
+
+
       recipesList: [{
           action: "free_breakfast",
           category: "Śniadanie",
@@ -277,6 +293,35 @@
           }]
         }
       ],
+      recipe: {
+        name: "",
+        ingridients: [],
+        directions: "",
+        select: "",
+        url: "",
+        items: ["Śniadanie", "Obiad", "Kolacja", "Deser", "Przekąska"]
+      },
+      displayRecipe: [{
+        name: "Pomidorowa",
+        ingridients: "Przecier pomidorowy, woda, przyprawy, bulion, makaron świderki",
+        directions: "Dokładnie umyj swoje pomidory... Zupę pomidorową najczęściej przygotowuje się z ugotowanego dzień wcześniej rosołu. Do rosołu (może być zimny) dodajemy koncentrat pomidorowy i śmietanę i dokładnie mieszamy. Podgrzewamy na małym ogniu co chwilę mieszając. Poniżej przepis jak przygotować zupę pomidorową od samego początku.",
+        url: "http://sklepgarmazeryjnyzosia.pl/wp-content/uploads/2015/12/zupa-pomidorowa1.jpg",
+        select: "Obiad"
+      }],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       productsList: [{
           action: "chevron_right",
           category: "Mięso i ryby",
@@ -356,27 +401,7 @@
           "Mrożonki",
           "Alkohol"
         ]
-      },
-      recipe: {
-        name: "",
-        ingridients: [],
-        directions: "",
-        select: "",
-        url: "",
-        items: ["Śniadanie", "Obiad", "Kolacja", "Deser", "Przekąska"]
-      },
-      displayProduct: [{
-        name: "Pomidor",
-        kcal: "22",
-        select: "Owoce i warzywa"
-      }],
-      displayRecipe: [{
-        name: "Pomidorowa",
-        ingridients: "Przecier pomidorowy, woda, przyprawy, bulion, makaron świderki",
-        directions: "Dokładnie umyj swoje pomidory... Zupę pomidorową najczęściej przygotowuje się z ugotowanego dzień wcześniej rosołu. Do rosołu (może być zimny) dodajemy koncentrat pomidorowy i śmietanę i dokładnie mieszamy. Podgrzewamy na małym ogniu co chwilę mieszając. Poniżej przepis jak przygotować zupę pomidorową od samego początku.",
-        url: "http://sklepgarmazeryjnyzosia.pl/wp-content/uploads/2015/12/zupa-pomidorowa1.jpg",
-        select: "Obiad"
-      }]
+      }
     }),
     methods: {
       async submitRecipe() {
@@ -401,8 +426,6 @@
           url: this.recipe.url,
           select: this.recipe.select
         });
-
-
         fetch('https://gluten-free-app.firebaseio.com/recipe.json', {
           method: 'post',
           body: JSON.stringify({
@@ -431,19 +454,6 @@
       },
       submitProduct() {
         this.adProductToList();
-        this.displayProduct.push({
-          name: this.product.name,
-          directions: this.product.kcal,
-          select: this.product.select
-        });
-        fetch('https://gluten-free-app.firebaseio.com/product.json', {
-          method: 'post',
-          body: JSON.stringify({
-             name: this.product.name,
-             directions: this.product.kcal,
-             select: this.product.select
-          })
-        });
         this.product.name = "";
         this.product.kcal = "";
         this.product.select = "";
@@ -501,6 +511,19 @@
             index = 6;
             break;
         }
+
+ fetch('https://gluten-free-app.firebaseio.com/product.json', {
+          method: 'post',
+          body: JSON.stringify({
+             name: this.product.name,
+             directions: this.product.kcal,
+             select: this.product.select
+          })
+        });
+
+
+
+
         this.productsList[index].items.push({
           title: this.product.name,
           kcal: this.product.kcal + " kcal"
