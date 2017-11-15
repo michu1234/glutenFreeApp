@@ -55,7 +55,7 @@
         </v-layout>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="grey lighten-1" dark fixed app clipped-right>
+    <v-toolbar color="pink darken-4" dark fixed app clipped-right>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>
         <div class="logo__box">
@@ -70,15 +70,8 @@
         </div>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-       <v-layout row align-center style="max-width: 250px">
-        <v-text-field
-          placeholder="Search..."
-          single-line
-          append-icon="search"
-          :append-icon-cb="() => {}"
-          class="white--text"
-          hide-details
-        ></v-text-field>
+      <v-layout row align-center style="max-width: 250px">
+        <v-text-field placeholder="Search..." single-line append-icon="search" :append-icon-cb="() => {}" class="white--text" hide-details></v-text-field>
       </v-layout>
       <v-toolbar-side-icon @click.stop="drawerRight = !drawerRight"></v-toolbar-side-icon>
     </v-toolbar>
@@ -98,7 +91,7 @@
         <v-layout row>
           <v-flex xs12>
             <v-card>
-              <v-toolbar color="pink darken-4" dark> 
+              <v-toolbar color="pink darken-4" dark>
                 <v-toolbar-side-icon></v-toolbar-side-icon>
                 <v-toolbar-title>Przepisy</v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -149,7 +142,7 @@
 
         <v-container>
           <form>
-            <v-text-field label="Przepis na..." v-model="recipe.name" :counter="10" required></v-text-field>
+            <v-text-field label="Przepis na..." v-model="recipe.title" :counter="10" required></v-text-field>
             <v-text-field label="Składniki" v-model="recipe.ingridients" required></v-text-field>
             <v-layout>
               <v-text-field name="input-7-1" label="Sposób wykonania" v-model="recipe.directions" :counter="100" multi-line></v-text-field>
@@ -167,34 +160,38 @@
             <!-- RECIPE DISPLAY -->
 
             <ul>
-              <li v-for="(r, index) in displayRecipe" :key="index">
-                <span class="display-3">{{r.name}} </span> ||
-                <span class="title"> {{r.select}}</span>
-                <v-layout row wrap>
-                  <v-flex md6>
-                    <v-card class="text-md-center" light color="grey lighten-4 mr-2 mb-2">
+              <li class="mt-4" v-for="(r, index) of recipesList" :key="index">
+                <span v-for="subItem in r.items" v-bind:key="subItem.title" @click="">
+                <span v-if="subItem.title">
+                  <span class="display-1 mt-4">{{subItem.title}} </span> ||
+                  <span class="title"> {{subItem.select}}</span>
+                  <v-layout row wrap>
+                    <v-flex md6>
+                      <v-card class="text-md-center mb-2" light color="grey lighten-4 mr-2">
+                        <v-card-text class="px-2">
+                          <img :src="subItem.url" class="logo--lighten mb-2" alt="">
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
+                    <v-flex md6>
+                      <v-card light color="grey lighten-4 mb-2">
+                        <v-card-text class="px-2">
+                          <h2 class="title">SKŁADNIKI:</h2>
+                          {{subItem.ingridients}}
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
+                  </v-layout>
+                  <v-flex xs12>
+                    <v-card class="mb-5" light color="grey lighten-4">
                       <v-card-text class="px-2">
-                        <img :src="r.url" class="logo--lighten" alt="">
+                        <h2 class="title">PRZYGOTOWANIE:</h2>
+                        {{subItem.directions}}
                       </v-card-text>
                     </v-card>
                   </v-flex>
-                  <v-flex md6>
-                    <v-card light color="grey lighten-4">
-                      <v-card-text class="px-2">
-                        <h2 class="title">SKŁADNIKI:</h2>
-                        {{r.ingridients}}
-                      </v-card-text>
-                    </v-card>
-                  </v-flex>
-                </v-layout>
-                <v-flex xs12>
-                  <v-card light color="grey lighten-4">
-                    <v-card-text class="px-2">
-                      <h2 class="title">PRZYGOTOWANIE:</h2>
-                      {{r.directions}}
-                    </v-card-text>
-                  </v-card>
-                </v-flex>
+                </span>
+                 </span>
               </li>
             </ul>
           </v-layout>
@@ -238,171 +235,187 @@
 
 <script>
   export default {
-    data: () => ({
-      drawer: true,
-      drawerRight: true,
-      right: null,
-      left: null,
-      imagePlaceholder: "https://mezmiz.com/media/1_0b3304fb6a6650ea6732ca231338659d.png",
+    data() {
+      return {
+        drawer: true,
+        drawerRight: true,
+        right: null,
+        left: null,
+        imagePlaceholder: "https://mezmiz.com/media/1_0b3304fb6a6650ea6732ca231338659d.png",
 
 
 
 
 
 
-      recipesList: [{
-          action: "free_breakfast",
-          category: "Śniadanie",
-          items: [{
-              title: "Kanapka z dżemem"
-            },
-            {
-              title: "Płatki owsiane"
-            },
-            {
-              title: "Jogurt z bananem"
-            }
+        recipesList: [{
+            action: "free_breakfast",
+            category: "Śniadanie",
+            items: [{
+                title: "",
+                directions: '',
+                ingridients: '',
+                url: '',
+                select: 'Śniadanie'
+              }
+            ]
+          },
+          {
+            action: "restaurant_menu",
+            category: "Obiad",
+            items: [{
+              title: "",
+              directions: '',
+              ingridients: '',
+              url: '',
+              select: 'Obiad'
+            }]
+          },
+          {
+            action: "restaurant",
+            category: "Kolacja",
+            items: [{
+              title: "",
+              directions: '',
+              ingridients: '',
+              url: '',
+              select: 'Obiad'
+            }]
+          },
+          {
+            action: "cake",
+            category: "Deser",
+            items: [{
+              title: "",
+              directions: '',
+              ingridients: '',
+              url: '',
+              select: 'Obiad'
+            }]
+          },
+          {
+            action: "child_care",
+            category: "Przekąska",
+            items: [{
+              title: "",
+              directions: '',
+              ingridients: '',
+              url: '',
+              select: 'Obiad'
+            }]
+          }
+        ],
+
+
+
+
+
+
+        recipe: {
+          title: "",
+          ingridients: [],
+          directions: "",
+          select: "",
+          url: "",
+          items: ["Śniadanie", "Obiad", "Kolacja", "Deser", "Przekąska"]
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        productsList: [{
+            action: "chevron_right",
+            category: "Mięso i ryby",
+            items: [{
+              title: "Pierś z kurczaka",
+              kcal: "290 kcal"
+            }]
+          },
+          {
+            action: "chevron_right",
+            category: "Nabiał i jaja",
+            items: [{
+                title: "Jajka przepiórcze",
+                kcal: "80 kcal"
+              },
+              {
+                title: "Jajka kurze",
+                kcal: "40 kcal"
+              },
+              {
+                title: "Jajka kacze",
+                kcal: "60 kcal"
+              }
+            ]
+          },
+          {
+            action: "chevron_right",
+            category: "Pieczywo",
+            items: [{
+              title: "Chleb na zakwasie",
+              kcal: "20 kcal"
+            }]
+          },
+          {
+            action: "chevron_right",
+            category: "Mrożonki",
+            items: [{
+              title: "Warzywa na patelnię",
+              kcal: "200 kcal"
+            }]
+          },
+          {
+            action: "chevron_right",
+            category: "Owoce i warzywa",
+            items: [{
+              title: "Arbuz",
+              kcal: "100 kcal"
+            }]
+          },
+          {
+            action: "chevron_right",
+            category: "Słodycze",
+            items: [{
+              title: "Krówki",
+              kcal: "210 kcal"
+            }]
+          },
+          {
+            action: "chevron_right",
+            category: "Alkohol",
+            items: [{
+              title: "Piwo IPA",
+              kcal: "250 kcal"
+            }]
+          }
+        ],
+        product: {
+          name: "",
+          kcal: "",
+          select: "",
+          items: [
+            "Mięso i ryby",
+            "Nabiał i jaja",
+            "Owoce i warzywa",
+            "Pieczywo",
+            "Słodycze",
+            "Mrożonki",
+            "Alkohol"
           ]
-        },
-        {
-          action: "restaurant_menu",
-          category: "Obiad",
-          items: [{
-            title: "Schabowy z kapustą"
-          }]
-        },
-        {
-          action: "restaurant",
-          category: "Kolacja",
-          items: [{
-            title: "Jajecznica"
-          }]
-        },
-        {
-          action: "cake",
-          category: "Deser",
-          items: [{
-            title: "Lody"
-          }]
-        },
-        {
-          action: "child_care",
-          category: "Przekąska",
-          items: [{
-            title: "Lizak"
-          }]
         }
-      ],
-      recipe: {
-        name: "",
-        ingridients: [],
-        directions: "",
-        select: "",
-        url: "",
-        items: ["Śniadanie", "Obiad", "Kolacja", "Deser", "Przekąska"]
-      },
-      displayRecipe: [{
-        name: "Pomidorowa",
-        ingridients: "Przecier pomidorowy, woda, przyprawy, bulion, makaron świderki",
-        directions: "Dokładnie umyj swoje pomidory... Zupę pomidorową najczęściej przygotowuje się z ugotowanego dzień wcześniej rosołu. Do rosołu (może być zimny) dodajemy koncentrat pomidorowy i śmietanę i dokładnie mieszamy. Podgrzewamy na małym ogniu co chwilę mieszając. Poniżej przepis jak przygotować zupę pomidorową od samego początku.",
-        url: "http://sklepgarmazeryjnyzosia.pl/wp-content/uploads/2015/12/zupa-pomidorowa1.jpg",
-        select: "Obiad"
-      }],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      productsList: [{
-          action: "chevron_right",
-          category: "Mięso i ryby",
-          items: [{
-            title: "Pierś z kurczaka",
-            kcal: "290 kcal"
-          }]
-        },
-        {
-          action: "chevron_right",
-          category: "Nabiał i jaja",
-          items: [{
-              title: "Jajka przepiórcze",
-              kcal: "80 kcal"
-            },
-            {
-              title: "Jajka kurze",
-              kcal: "40 kcal"
-            },
-            {
-              title: "Jajka kacze",
-              kcal: "60 kcal"
-            }
-          ]
-        },
-        {
-          action: "chevron_right",
-          category: "Pieczywo",
-          items: [{
-            title: "Chleb na zakwasie",
-            kcal: "20 kcal"
-          }]
-        },
-        {
-          action: "chevron_right",
-          category: "Mrożonki",
-          items: [{
-            title: "Warzywa na patelnię",
-            kcal: "200 kcal"
-          }]
-        },
-        {
-          action: "chevron_right",
-          category: "Owoce i warzywa",
-          items: [{
-            title: "Arbuz",
-            kcal: "100 kcal"
-          }]
-        },
-        {
-          action: "chevron_right",
-          category: "Słodycze",
-          items: [{
-            title: "Krówki",
-            kcal: "210 kcal"
-          }]
-        },
-        {
-          action: "chevron_right",
-          category: "Alkohol",
-          items: [{
-            title: "Piwo IPA",
-            kcal: "250 kcal"
-          }]
-        }
-      ],
-      product: {
-        name: "",
-        kcal: "",
-        select: "",
-        items: [
-          "Mięso i ryby",
-          "Nabiał i jaja",
-          "Owoce i warzywa",
-          "Pieczywo",
-          "Słodycze",
-          "Mrożonki",
-          "Alkohol"
-        ]
       }
-    }),
+    },
     methods: {
       async submitRecipe() {
         await fetch(
@@ -419,52 +432,9 @@
               this.recipe.url = data.hits[0].webformatURL;
             }
           });
-        this.displayRecipe.push({
-          name: this.recipe.name,
-          directions: this.recipe.directions,
-          ingridients: this.recipe.ingridients,
-          url: this.recipe.url,
-          select: this.recipe.select
-        });
-        fetch('https://gluten-free-app.firebaseio.com/recipe.json', {
-          method: 'post',
-          body: JSON.stringify({
-            name: this.recipe.name,
-            directions: this.recipe.directions,
-            ingridients: this.recipe.ingridients,
-            url: this.recipe.url,
-            select: this.recipe.select
-          })
-        });
+      
 
-
-        this.adRecipeToList();
-        this.recipe.name = "";
-        this.recipe.ingridients = "";
-        this.recipe.directions = "";
-        this.recipe.url = "";
-        this.recipe.select = "";
-      },
-      clearRecipe() {
-        this.recipe.name = "";
-        this.recipe.ingridients = "";
-        this.recipe.directions = "";
-        this.recipe.url = "";
-        this.recipe.select = "";
-      },
-      submitProduct() {
-        this.adProductToList();
-        this.product.name = "";
-        this.product.kcal = "";
-        this.product.select = "";
-      },
-      clearProduct() {
-        this.product.name = "";
-        this.product.kcal = "";
-        this.product.select = "";
-      },
-      adRecipeToList() {
-        let index;
+       let index;
         switch (this.recipe.select) {
           case "Śniadanie":
             index = 0;
@@ -482,9 +452,53 @@
             index = 4;
             break;
         }
-        this.recipesList[index].items.push({
-          title: this.recipe.name
+     
+
+          this.recipesList[index].items.push({
+          title: this.recipe.title,
+          directions: this.recipe.directions,
+          ingridients: this.recipe.ingridients,
+          url: this.recipe.url,
+          select: this.recipe.select
         });
+
+        fetch('https://gluten-free-app.firebaseio.com/recipe.json', {
+          method: 'post',
+          body: JSON.stringify([
+           
+
+ 
+          ])
+        });
+
+
+        this.recipe.title = "";
+        this.recipe.ingridients = "";
+        this.recipe.directions = "";
+        this.recipe.url = "";
+        this.recipe.select = "";
+      },
+
+
+
+
+      clearRecipe() {
+        this.recipe.title = "";
+        this.recipe.ingridients = "";
+        this.recipe.directions = "";
+        this.recipe.url = "";
+        this.recipe.select = "";
+      },
+      submitProduct() {
+        this.adProductToList();
+        this.product.name = "";
+        this.product.kcal = "";
+        this.product.select = "";
+      },
+      clearProduct() {
+        this.product.name = "";
+        this.product.kcal = "";
+        this.product.select = "";
       },
       adProductToList() {
         let index;
@@ -512,12 +526,12 @@
             break;
         }
 
- fetch('https://gluten-free-app.firebaseio.com/product.json', {
+        fetch('https://gluten-free-app.firebaseio.com/product.json', {
           method: 'post',
           body: JSON.stringify({
-             name: this.product.name,
-             directions: this.product.kcal,
-             select: this.product.select
+            name: this.product.name,
+            directions: this.product.kcal,
+            select: this.product.select
           })
         });
 
@@ -530,8 +544,28 @@
         });
       }
     },
+    created() {
+      fetch('https://gluten-free-app.firebaseio.com/recipe.json').then(function (data) {
+        return data.json();
+      }).then((data) => {
+        var recipeIDs = [];
+        for (let ids in data) {
+          data[ids].id = ids;
+          recipeIDs.push(data[ids]);
+        }
+        // this.recipesList = recipeIDs;
+        // console.log(this.recipesList);
+
+
+
+
+      });
+    },
     props: {
       source: String
+    },
+    mounted() {
+    console.log(this.recipesList);
     }
   };
 

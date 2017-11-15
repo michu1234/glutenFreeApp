@@ -3,6 +3,7 @@ import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
 
+
 require('../node_modules/vuetify/dist/vuetify.css')
 
 Vue.use(Vuetify)
