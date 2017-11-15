@@ -191,6 +191,7 @@
                     </v-card>
                   </v-flex>
                 </span>
+                <span class="welcome--box" v-html="subItem.promo" v-else></span>
                  </span>
               </li>
             </ul>
@@ -246,8 +247,6 @@
 
 
 
-
-
         recipesList: [{
             action: "free_breakfast",
             category: "Śniadanie",
@@ -256,7 +255,8 @@
                 directions: '',
                 ingridients: '',
                 url: '',
-                select: 'Śniadanie'
+                select: 'Śniadanie',
+                promo: '&#10003; <em>Zbuduj listę przepisów na potrawy bezglutenowe...</em>'
               }
             ]
           },
@@ -268,7 +268,8 @@
               directions: '',
               ingridients: '',
               url: '',
-              select: 'Obiad'
+              select: 'Obiad',
+              promo: '&#10003; <em>Korzystaj na laptopie i smartfonie...</em>'
             }]
           },
           {
@@ -279,7 +280,8 @@
               directions: '',
               ingridients: '',
               url: '',
-              select: 'Obiad'
+              select: 'Obiad',
+              promo: '&#10003; <em>Utwórz listę ulubionych produktów...</em>'
             }]
           },
           {
@@ -290,7 +292,8 @@
               directions: '',
               ingridients: '',
               url: '',
-              select: 'Obiad'
+              select: 'Obiad',
+              promo: '&#10003; <em>Korzystaj z nieograniczonej bazy danych...</em>'
             }]
           },
           {
@@ -301,7 +304,8 @@
               directions: '',
               ingridients: '',
               url: '',
-              select: 'Obiad'
+              select: 'Obiad',
+              promo: '&#10003; <em>Lista zakupów GRATIS...</em>'
             }]
           }
         ],
@@ -690,6 +694,12 @@
   .text--red {
     color: #fffadb;
   }
-
+  
+  .welcome--box {
+    border: 1px dashed lightgray;
+    border-radius: 10px;
+    padding: 10px;
+    color: gray;
+  }
 </style>
 
