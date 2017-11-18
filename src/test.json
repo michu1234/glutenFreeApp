@@ -1,0 +1,60 @@
+{
+    action: "free_breakfast",
+    category: "Śniadanie",
+    items: [{
+      title: "",
+      directions: '',
+      ingridients: '',
+      url: '',
+      select: 'Śniadanie',
+      promo: '&#10003; <em>Zbuduj listę przepisów na potrawy bezglutenowe...</em>'
+    }]
+  },
+  {
+    action: "restaurant_menu",
+    category: "Obiad",
+    items: [{
+      title: "",
+      directions: '',
+      ingridients: '',
+      url: '',
+      select: 'Obiad',
+      promo: '&#10003; <em>Korzystaj na laptopie i smartfonie...</em>'
+    }]
+  },
+  {
+    action: "restaurant",
+    category: "Kolacja",
+    items: [{
+      title: "",
+      directions: '',
+      ingridients: '',
+      url: '',
+      select: 'Obiad',
+      promo: '&#10003; <em>Lista ulubionych produktów...</em>'
+    }]
+  },
+  {
+    action: "cake",
+    category: "Deser",
+    items: [{
+      title: "",
+      directions: '',
+      ingridients: '',
+      url: '',
+      select: 'Obiad',
+      promo: '&#10003; <em>Nieograniczona baza danych...</em>'
+    }]
+  },
+  {
+    action: "child_care",
+    category: "Przekąska",
+    items: [{
+      title: "",
+      directions: '',
+      ingridients: '',
+      url: '',
+      select: 'Obiad',
+      promo: '&#10003; <em>Lista zakupów</em>'
+    }]
+  }

@@ -55,7 +55,7 @@
         </v-layout>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="pink darken-4" dark fixed app clipped-right>
+    <v-toolbar color="lime accent-4" dark fixed app clipped-right>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>
         <div class="logo__box">
@@ -70,9 +70,23 @@
         </div>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-layout row align-center style="max-width: 250px">
-        <v-text-field placeholder="Search..." single-line append-icon="search" :append-icon-cb="() => {}" class="white--text" hide-details></v-text-field>
+      <v-layout row align-center style="max-width: 450px">
+        <v-text-field v-model="searchInput" placeholder="Search..." single-line append-icon="search" :append-icon-cb="() => {}" class="white--text"
+          hide-details></v-text-field>
+        <v-flex xs12 md6 class="search__radio">
+
+
+          <v-card-text>
+            <p>{{ ex8 || 'null' }}</p>
+            <v-radio-group dark v-model="ex8" :mandatory="false">
+              <v-radio label="Przepisy" value="radio-1"></v-radio>
+              <v-radio label="Produkty" value="radio-2"></v-radio>
+            </v-radio-group>
+          </v-card-text>
+
+        </v-flex>
       </v-layout>
+
       <v-toolbar-side-icon @click.stop="drawerRight = !drawerRight"></v-toolbar-side-icon>
     </v-toolbar>
     <v-navigation-drawer persistent v-model="drawer" enable-resize-watcher app>
@@ -91,7 +105,7 @@
         <v-layout row>
           <v-flex xs12>
             <v-card>
-              <v-toolbar color="pink darken-4" dark>
+              <v-toolbar color="lime accent-3" dark>
                 <v-toolbar-side-icon></v-toolbar-side-icon>
                 <v-toolbar-title>Przepisy</v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -157,11 +171,51 @@
         <v-container fluid>
           <v-layout align-center>
 
-            <!-- RECIPE DISPLAY -->
+            <!-- NEW RECIPE -->
 
             <ul>
               <li class="mt-4" v-for="(r, index) of recipesList" :key="index">
                 <span v-for="subItem in r.items" v-bind:key="subItem.title" @click="">
+                  <span v-if="subItem.title">
+                    <span class="display-1 mt-4">{{subItem.title}} </span> ||
+                    <span class="title"> {{subItem.select}}</span>
+                    <v-layout row wrap>
+                      <v-flex md6>
+                        <v-card class="text-md-center mb-2" light color="grey lighten-4 mr-2">
+                          <v-card-text class="px-2">
+                            <img :src="subItem.url" class="logo--lighten mb-2" alt="">
+                          </v-card-text>
+                        </v-card>
+                      </v-flex>
+                      <v-flex md6>
+                        <v-card light color="grey lighten-4 mb-2">
+                          <v-card-text class="px-2">
+                            <h2 class="title">SKŁADNIKI:</h2>
+                            {{subItem.ingridients}}
+                          </v-card-text>
+                        </v-card>
+                      </v-flex>
+                    </v-layout>
+                    <v-flex xs12>
+                      <v-card class="mb-5" light color="grey lighten-4">
+                        <v-card-text class="px-2">
+                          <h2 class="title">PRZYGOTOWANIE:</h2>
+                          {{subItem.directions}}
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
+                  </span>
+                  <span class="welcome--box" v-html="subItem.promo" v-else></span>
+                </span>
+              </li>
+            </ul>
+          </v-layout>
+
+          <!-- RECIPE DISPLAY -->
+
+          <ul>
+            <li class="mt-4" v-for="(r, index) of filteredRecipes" :key="index">
+              <span v-for="subItem in r.items" v-bind:key="subItem.title" @click="">
                 <span v-if="subItem.title">
                   <span class="display-1 mt-4">{{subItem.title}} </span> ||
                   <span class="title"> {{subItem.select}}</span>
@@ -192,13 +246,19 @@
                   </v-flex>
                 </span>
                 <span class="welcome--box" v-html="subItem.promo" v-else></span>
-                 </span>
-              </li>
-            </ul>
+              </span>
+            </li>
+          </ul>
           </v-layout>
+
+          <div class="text-xs-center">
+            <v-pagination :length="6" v-model="page"></v-pagination>
+          </div>
         </v-container>
       </v-content>
       <v-navigation-drawer right temporary v-model="right" fixed>
+
+
 
         <!-- PRODUCTS INPUT -->
 
@@ -235,9 +295,29 @@
 
 
 <script>
+  import {
+    breakfastRecipe
+  } from './firebase';
+  import {
+    dinnerRecipe
+  } from './firebase';
+  import {
+    supperRecipe
+  } from './firebase';
+  import {
+    dessertRecipe
+  } from './firebase';
+  import {
+    snackRecipe
+  } from './firebase';
+
   export default {
     data() {
       return {
+        searchInput: '',
+        page: 1,
+        ex8: 'radio-1',
+        ex9: 'radio-3',
         drawer: true,
         drawerRight: true,
         right: null,
@@ -246,19 +326,17 @@
 
 
 
-
-        recipesList: [{
+        newRecipe: [{
             action: "free_breakfast",
             category: "Śniadanie",
             items: [{
-                title: "",
-                directions: '',
-                ingridients: '',
-                url: '',
-                select: 'Śniadanie',
-                promo: '&#10003; <em>Zbuduj listę przepisów na potrawy bezglutenowe...</em>'
-              }
-            ]
+              title: "",
+              directions: '',
+              ingridients: '',
+              url: '',
+              select: 'Śniadanie',
+              promo: '&#10003; <em>Zbuduj listę przepisów na potrawy bezglutenowe...</em>'
+            }]
           },
           {
             action: "restaurant_menu",
@@ -281,7 +359,7 @@
               ingridients: '',
               url: '',
               select: 'Obiad',
-              promo: '&#10003; <em>Utwórz listę ulubionych produktów...</em>'
+              promo: '&#10003; <em>Lista ulubionych produktów...</em>'
             }]
           },
           {
@@ -293,7 +371,7 @@
               ingridients: '',
               url: '',
               select: 'Obiad',
-              promo: '&#10003; <em>Korzystaj z nieograniczonej bazy danych...</em>'
+              promo: '&#10003; <em>Nieograniczona baza danych...</em>'
             }]
           },
           {
@@ -305,11 +383,12 @@
               ingridients: '',
               url: '',
               select: 'Obiad',
-              promo: '&#10003; <em>Lista zakupów GRATIS...</em>'
+              promo: '&#10003; <em>Lista zakupów</em>'
             }]
           }
         ],
-
+        recipesList: [],
+     
 
 
 
@@ -436,9 +515,9 @@
               this.recipe.url = data.hits[0].webformatURL;
             }
           });
-      
 
-       let index;
+
+        let index;
         switch (this.recipe.select) {
           case "Śniadanie":
             index = 0;
@@ -456,9 +535,9 @@
             index = 4;
             break;
         }
-     
 
-          this.recipesList[index].items.push({
+        // NOWY PRZPIS  
+        this.newRecipe[index].items.push({
           title: this.recipe.title,
           directions: this.recipe.directions,
           ingridients: this.recipe.ingridients,
@@ -466,14 +545,51 @@
           select: this.recipe.select
         });
 
-        fetch('https://gluten-free-app.firebaseio.com/recipe.json', {
-          method: 'post',
-          body: JSON.stringify([
-           
-
- 
-          ])
-        });
+        if (index === 0) {
+          breakfastRecipe.push({
+            title: this.recipe.title,
+            directions: this.recipe.directions,
+            ingridients: this.recipe.ingridients,
+            url: this.recipe.url,
+            select: this.recipe.select
+          })
+        }
+        if (index === 1) {
+          dinnerRecipe.push({
+            title: this.recipe.title,
+            directions: this.recipe.directions,
+            ingridients: this.recipe.ingridients,
+            url: this.recipe.url,
+            select: this.recipe.select
+          })
+        }
+        if (index === 2) {
+          supperRecipe.push({
+            title: this.recipe.title,
+            directions: this.recipe.directions,
+            ingridients: this.recipe.ingridients,
+            url: this.recipe.url,
+            select: this.recipe.select
+          })
+        }
+        if (index === 3) {
+          dessertRecipe.push({
+            title: this.recipe.title,
+            directions: this.recipe.directions,
+            ingridients: this.recipe.ingridients,
+            url: this.recipe.url,
+            select: this.recipe.select
+          })
+        }
+        if (index === 4) {
+          snackRecipe.push({
+            title: this.recipe.title,
+            directions: this.recipe.directions,
+            ingridients: this.recipe.ingridients,
+            url: this.recipe.url,
+            select: this.recipe.select
+          })
+        }
 
 
         this.recipe.title = "";
@@ -556,11 +672,18 @@
         for (let ids in data) {
           data[ids].id = ids;
           recipeIDs.push(data[ids]);
+
         }
-        // this.recipesList = recipeIDs;
-        // console.log(this.recipesList);
 
 
+        // POBIERZ Z FIREBASE I DODAJ DO PRODUCT DISPLAY
+
+
+
+        this.recipesList = recipeIDs;
+        // console.log(this.recipesList[0].items['-KzFE5s7azulqrjNOGrB']);
+
+      
 
 
       });
@@ -568,8 +691,18 @@
     props: {
       source: String
     },
+    computed: {
+
+      // filteredRecipes: function () {
+      //   return this.recipesList.filter((data, index) => {
+      //     return data[index].items[index].title.match(this.searchInput)})
+      // }
+      // FILTROWANIE  INPUT / RECIPELIST
+
+
+    },
     mounted() {
-    console.log(this.recipesList);
+      // console.log(this.recipesList);
     }
   };
 
@@ -694,12 +827,27 @@
   .text--red {
     color: #fffadb;
   }
-  
+
   .welcome--box {
     border: 1px dashed lightgray;
     border-radius: 10px;
     padding: 10px;
     color: gray;
   }
+
+  .radio-group--column {
+    margin-top: -10px;
+    padding: 0;
+  }
+
+  .input-group--selection-controls {
+    color: #ffffff;
+  }
+
+  .search__radio {
+    max-width: 30%;
+    font-size: 10px;
+  }
+
 </style>
 
