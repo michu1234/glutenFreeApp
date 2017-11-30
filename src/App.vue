@@ -59,14 +59,15 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>
         <div class="logo__box">
-          <img class="logo" src="../src/assets/food-logo.png">
-          <p>
+        <router-link to="/"><img class="logo" src="../src/assets/food-logo.png">
+          <span class="text--red"> <p>
             Gluten Free Recipes
             <br/>
             <small>
-              <span class="text--red">and products...</span>
+             and products...
             </small>
-          </p>
+          </p></span>
+          </router-link>
         </div>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -126,14 +127,13 @@
                       <v-icon>keyboard_arrow_down</v-icon>
                     </v-list-tile-action>
                   </v-list-tile>
-                  <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
+                  <v-list-tile v-for="(subItem, index) in item.items" v-bind:key="subItem.title" @click="">
 
                     <v-list-tile-content>
                       <div class="subItem">
-
-                        <v-icon>navigate_next</v-icon>
-                        <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
-
+                        <router-link :to="'/recipe/' + index" exact>
+                        <v-icon>navigate_next</v-icon><v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+                        </router-link>
                       </div>
                     </v-list-tile-content>
 
@@ -173,7 +173,7 @@
 
             <!-- NEW RECIPE -->
 
-            <ul>
+            <!-- <ul>
               <li class="mt-4" v-for="(r, index) of recipesList" :key="index">
                 <span v-for="subItem in r.items" v-bind:key="subItem.title" @click="">
                   <span v-if="subItem.title">
@@ -208,52 +208,14 @@
                   <span class="welcome--box" v-html="subItem.promo" v-else></span>
                 </span>
               </li>
-            </ul>
+            </ul> -->
+          </v-layout>
+     <router-view></router-view>
           </v-layout>
 
-          <!-- RECIPE DISPLAY -->
-
-          <ul>
-            <li class="mt-4" v-for="(r, index) of filteredRecipes" :key="index">
-              <span v-for="subItem in r.items" v-bind:key="subItem.title" @click="">
-                <span v-if="subItem.title">
-                  <span class="display-1 mt-4">{{subItem.title}} </span> ||
-                  <span class="title"> {{subItem.select}}</span>
-                  <v-layout row wrap>
-                    <v-flex md6>
-                      <v-card class="text-md-center mb-2" light color="grey lighten-4 mr-2">
-                        <v-card-text class="px-2">
-                          <img :src="subItem.url" class="logo--lighten mb-2" alt="">
-                        </v-card-text>
-                      </v-card>
-                    </v-flex>
-                    <v-flex md6>
-                      <v-card light color="grey lighten-4 mb-2">
-                        <v-card-text class="px-2">
-                          <h2 class="title">SKŁADNIKI:</h2>
-                          {{subItem.ingridients}}
-                        </v-card-text>
-                      </v-card>
-                    </v-flex>
-                  </v-layout>
-                  <v-flex xs12>
-                    <v-card class="mb-5" light color="grey lighten-4">
-                      <v-card-text class="px-2">
-                        <h2 class="title">PRZYGOTOWANIE:</h2>
-                        {{subItem.directions}}
-                      </v-card-text>
-                    </v-card>
-                  </v-flex>
-                </span>
-                <span class="welcome--box" v-html="subItem.promo" v-else></span>
-              </span>
-            </li>
-          </ul>
-          </v-layout>
-
-          <div class="text-xs-center">
+          <!-- <div class="text-xs-center">
             <v-pagination :length="6" v-model="page"></v-pagination>
-          </div>
+          </div> -->
         </v-container>
       </v-content>
       <v-navigation-drawer right temporary v-model="right" fixed>
@@ -674,16 +636,17 @@
           recipeIDs.push(data[ids]);
 
         }
-
+// console.log(recipeIDs[0])
 
         // POBIERZ Z FIREBASE I DODAJ DO PRODUCT DISPLAY
 
 
 
         this.recipesList = recipeIDs;
+        // console.log(Object.keys(this.recipesList[0].items))
         // console.log(this.recipesList[0].items['-KzFE5s7azulqrjNOGrB']);
 
-      
+    
 
 
       });
@@ -693,10 +656,12 @@
     },
     computed: {
 
-      // filteredRecipes: function () {
-      //   return this.recipesList.filter((data, index) => {
-      //     return data[index].items[index].title.match(this.searchInput)})
-      // }
+      filteredRecipes: function () {
+          return this.recipesList.filter((data)=>{
+            return data
+            // return data.items['-KzFE5s7azulqrjNOGrB'].title.match(this.searchInput);
+          })
+      }
       // FILTROWANIE  INPUT / RECIPELIST
 
 
@@ -847,6 +812,14 @@
   .search__radio {
     max-width: 30%;
     font-size: 10px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .list__tile__title {
+    display: inline;
   }
 
 </style>

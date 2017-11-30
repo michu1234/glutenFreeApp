@@ -1,16 +1,22 @@
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+import Routes from './router/index'
 import Vuetify from 'vuetify'
 import Firebase from './firebase'
 import VueFire from 'vuefire'
+import VueRouter from 'vue-router'
 
 
 require('../node_modules/vuetify/dist/vuetify.css')
 
-
+Vue.use(VueRouter)
 Vue.use(VueFire)
 Vue.use(Vuetify)
+
+const router = new VueRouter({
+  routes: Routes,
+  mode: 'history'
+})
 
 Vue.config.productionTip = false
 
