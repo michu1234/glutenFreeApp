@@ -65,12 +65,7 @@
    
    
 
-     <v-btn class="pulse" fab dark color="red lighten-1">
-        <v-tooltip left>
-      <v-icon slot="activator" dark>add</v-icon>
-         <span>Dodaj do listy zakupów</span>
-       </v-tooltip>
-    </v-btn>
+    
 
 
 
@@ -201,7 +196,7 @@
       <v-content>
         <v-container fluid>
           <v-layout align-center>
- <shopping-list></shopping-list>
+ <shopping-list :onoff="info"></shopping-list>
             <!-- NEW RECIPE -->
 
             <!-- <ul>
@@ -273,6 +268,12 @@
       </span>
       <v-spacer></v-spacer>
       <span>&copy; 2017</span>
+       <v-btn @click="info =! info" class="pulse" fab dark color="red lighten-1">
+        <v-tooltip left>
+      <v-icon slot="activator" dark>add</v-icon>
+         <span>Dodaj do listy zakupów</span>
+       </v-tooltip>
+    </v-btn>
     </v-footer>
   </v-app>
 </template>
@@ -308,6 +309,7 @@
   export default {
     data() {
       return {
+        info: false,
         searchInput: '',
         page: 1,
         ex8: 'radio-1',
@@ -656,6 +658,9 @@
           title: this.product.name,
           kcal: this.product.kcal + " kcal"
         });
+      },
+      openShoppinList() {
+        this.info = true;
       }
     },
     created() {
@@ -863,6 +868,7 @@
 
   .pulse {
   animation: pulse 1s ease infinite;
+  z-index: 12;
   }
 
   @-webkit-keyframes pulse {
