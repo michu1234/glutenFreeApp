@@ -89,18 +89,20 @@
       <v-toolbar-title>
         <div class="logo__box">
         <router-link to="/"><img class="logo" src="../src/assets/food-logo.png">
-          <span class="text--red"> <p>
-            Gluten Free Recipes
-            <br/>
-            <small>
-             and products...
-            </small>
-          </p></span>
+          <v-layout d-inline-block hidden-xs-only>
+            <span class="text--red"> <p>
+              Gluten Free Recipes
+              <br/>
+              <small>
+               and products...
+              </small>
+            </p></span>
+          </v-layout>
           </router-link>
         </div>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-layout row align-center style="max-width: 450px">
+      <v-layout hidden-sm-and-down row align-center style="max-width: 450px">
         <v-text-field v-model="searchInput" placeholder="Search..." single-line append-icon="search" :append-icon-cb="() => {}" class="white--text"
           hide-details></v-text-field>
         <v-flex xs12 md6 class="search__radio">
@@ -199,7 +201,7 @@
       <v-content>
         <v-container fluid>
           <v-layout align-center>
-
+ <shopping-list></shopping-list>
             <!-- NEW RECIPE -->
 
             <!-- <ul>
@@ -264,6 +266,7 @@
         </v-container>
       </v-navigation-drawer>
     </main>
+   
     <v-footer color="grey darken-4" class="white--text" app>
       <span>
         <small>&copy; Copyright 2017, Dawid Nawrocki</small>
@@ -792,6 +795,7 @@
     display: inline-block;
     line-height: 16px;
     font-family: "Chewy", cursive;
+    z-index: 113;
 
     text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7);
   }

@@ -61,7 +61,7 @@
   export default {
     data() {
       return {
-        ide: this.$route.params.id,
+        ide: '-KzFE5s7azulqrjNOGrB',
         searchInput: '',
         page: 1,
         ex8: 'radio-1',
@@ -72,7 +72,7 @@
         left: null,
         imagePlaceholder: "https://mezmiz.com/media/1_0b3304fb6a6650ea6732ca231338659d.png",
         recipesList: [],
-        filteredList: null,
+        filteredList: [],
       }
     },
     created() {
@@ -86,6 +86,19 @@
         }
         this.recipesList = recipeIDs;
       });
+
+        var tablica = this.recipesList;
+        for (let i of tablica) {
+          let to = this.ide;
+          let emptyT = [];
+          for (let a in i.items) {
+            if (a === to) {
+              emptyT.unshift(i.items[to]);
+              this.filteredList = emptyT;
+              console.log(this.filteredList)
+            }
+          }
+        }
     },
     watch: {
       '$route' (to, from) {

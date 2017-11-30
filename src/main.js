@@ -5,6 +5,7 @@ import Vuetify from 'vuetify'
 import Firebase from './firebase'
 import VueFire from 'vuefire'
 import VueRouter from 'vue-router'
+import ShoppingList from './components/ShoppingList'
 
 
 require('../node_modules/vuetify/dist/vuetify.css')
@@ -12,6 +13,8 @@ require('../node_modules/vuetify/dist/vuetify.css')
 Vue.use(VueRouter)
 Vue.use(VueFire)
 Vue.use(Vuetify)
+
+Vue.component('shopping-list', ShoppingList)
 
 const router = new VueRouter({
   routes: Routes,
