@@ -53,8 +53,37 @@
             </v-card>
           </v-flex>
         </v-layout>
+        
       </v-list>
+
+  
+
+
+
+
+      
+   
+   
+
+     <v-btn class="pulse" fab dark color="red lighten-1">
+        <v-tooltip left>
+      <v-icon slot="activator" dark>add</v-icon>
+         <span>Dodaj do listy zakupów</span>
+       </v-tooltip>
+    </v-btn>
+
+
+
+
+
+
+
+
+
+    
+    
     </v-navigation-drawer>
+    
     <v-toolbar color="lime accent-4" dark fixed app clipped-right>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>
@@ -821,6 +850,45 @@
   .list__tile__title {
     display: inline;
   }
+
+  button.pulse{
+    position: absolute;
+    bottom: 10px;
+    right: 2%;
+  }
+
+  .pulse {
+  animation: pulse 1s ease infinite;
+  }
+
+  @-webkit-keyframes pulse {
+  0% {
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+  }
+  50% {
+  -webkit-transform: scale3d(1.05, 1.05, 1.05);
+  transform: scale3d(1.09, 1.09, 1.09);
+  }
+  100% {
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+  }
+  }
+  @keyframes pulse {
+  0% {
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+  }
+  50% {
+  -webkit-transform: scale3d(1.05, 1.05, 1.05);
+  transform: scale3d(1.09, 1.09, 1.09);
+  }
+  100% {
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+  }
+  } 
 
 </style>
 
