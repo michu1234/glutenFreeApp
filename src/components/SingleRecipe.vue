@@ -146,6 +146,8 @@
 <style scoped>
   img {
     max-width: 300px;
+    border-radius: 10px;
+    border: 1px solid #aeff00;
   }
   ul {
     list-style: none;
