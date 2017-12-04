@@ -270,7 +270,7 @@
        </v-tooltip>
     </v-btn>
       <span>
-        <small>&copy; Copyright 2017, Dawid Nawrocki</small>
+        <small>&nbsp;&nbsp;&copy; Copyright 2017, Dawid Nawrocki</small>
       </span>
       <v-spacer></v-spacer>
       <span>&copy; 2017 &nbsp;</span>
