@@ -8,7 +8,7 @@
           <!-- <span v-if="subItem.title"> -->
             <span class="display-1 mt-4">{{filteredList[0].title}} </span> ||
             <span class="title"> {{filteredList[0].select}}</span>
-            <v-layout row wrap>
+            <v-layout row wrap mt-4>
               <v-flex md6>
                 <v-card class="text-md-center mb-2" light color="grey lighten-4 mr-2">
                   <v-card-text class="px-2">
@@ -146,6 +146,9 @@
 <style scoped>
   img {
     max-width: 300px;
+  }
+  ul {
+    list-style: none;
   }
 
 </style>

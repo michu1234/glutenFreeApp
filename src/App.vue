@@ -863,7 +863,7 @@
   button.pulse{
     position: absolute;
     bottom: 10px;
-    right: 3%;
+    right: 2%;
   }
 
   .pulse {
