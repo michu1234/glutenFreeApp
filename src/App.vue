@@ -263,17 +263,17 @@
     </main>
    
     <v-footer color="grey darken-4" class="white--text" app>
-      <span>
-        <small>&copy; Copyright 2017, Dawid Nawrocki</small>
-      </span>
-      <v-spacer></v-spacer>
-      <span>&copy; 2017</span>
-       <v-btn @click="info =! info" class="pulse" fab dark color="red lighten-1">
+      <v-btn @click="info =! info" class="pulse" fab dark color="red lighten-1">
         <v-tooltip left>
       <v-icon slot="activator" dark>add</v-icon>
          <span>Dodaj do listy zakupów</span>
        </v-tooltip>
     </v-btn>
+      <span>
+        <small>&copy; Copyright 2017, Dawid Nawrocki</small>
+      </span>
+      <v-spacer></v-spacer>
+      <span>&copy; 2017 &nbsp;</span>
     </v-footer>
   </v-app>
 </template>
@@ -861,7 +861,7 @@
   }
 
   button.pulse{
-    position: absolute;
+    position: fixed;
     bottom: 10px;
     right: 2%;
   }
