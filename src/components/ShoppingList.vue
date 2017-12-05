@@ -17,7 +17,7 @@
      </v-flex>
             </v-layout>
             <v-btn @click.native="addProduct" color="lime accent-3">Dodaj</v-btn>
-              <v-btn @click.native="" color="lime accent-3 elevation-7">Zapisz</v-btn>
+              <v-btn @click.native="" color="lime accent-3">Zapisz</v-btn>
             <v-btn @click.native="removeProduct" color="error">Usuń</v-btn>
           
 
@@ -72,10 +72,12 @@
         this.productName = "";
         this.productNotes = "";
       },
-      removeProduct: function(index) {
-    
-         this.products.splice(index, 1);
-  
+      removeProduct: function() {
+       for (let i=0;i<this.products.length; i++) {
+         if(this.products[i].notifications === true){
+             this.products.splice(i,1)
+         }
+       }
       }
     }
   }
