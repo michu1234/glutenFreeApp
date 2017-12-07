@@ -236,7 +236,9 @@
               </li>
             </ul> -->
           </v-layout>
-     <router-view></router-view>
+     <transition name="fade">
+       <router-view></router-view>
+     </transition>
           </v-layout>
 
           <!-- <div class="text-xs-center">
@@ -899,6 +901,17 @@
   transform: scale3d(1, 1, 1);
   }
   } 
+
+  .fade-enter-active, .fade-leave-active {
+  transition: opacity .3s, transform .3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+ transform: translateX(0);
+}
+.fade-leave {
+ transform: translateX(-200px);
+}
 
 </style>
 
