@@ -56,27 +56,6 @@
         
       </v-list>
 
-  
-
-
-
-
-      
-   
-   
-
-    
-
-
-
-
-
-
-
-
-
-    
-    
     </v-navigation-drawer>
     
     <v-toolbar color="lime accent-4" dark fixed app clipped-right>
@@ -154,7 +133,7 @@
                     </v-list-tile-action>
                   </v-list-tile>
                   <v-list-tile v-for="(subItem, index) in item.items" v-bind:key="subItem.title" @click="">
-
+ 
                     <v-list-tile-content>
                       <div class="subItem">
                         <router-link :to="'/recipe/' + index" exact>
@@ -238,6 +217,7 @@
           </v-layout>
      <transition name="fade">
        <router-view></router-view>
+       <single-recipe></single-recipe>
      </transition>
           </v-layout>
 
@@ -247,8 +227,6 @@
         </v-container>
       </v-content>
       <v-navigation-drawer right temporary v-model="right" fixed>
-
-
 
         <!-- PRODUCTS INPUT -->
 
@@ -281,16 +259,6 @@
 </template>
 
 
-
-
-
-
-
-
-
-
-
-
 <script>
   import {
     breakfastRecipe
@@ -311,6 +279,7 @@
   export default {
     data() {
       return {
+        index: '',
         info: false,
         searchInput: '',
         page: 1,
@@ -386,12 +355,6 @@
           }
         ],
         recipesList: [],
-     
-
-
-
-
-
         recipe: {
           title: "",
           ingridients: [],
@@ -400,21 +363,6 @@
           url: "",
           items: ["Śniadanie", "Obiad", "Kolacja", "Deser", "Przekąska"]
         },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         productsList: [{
             action: "chevron_right",
             category: "Mięso i ryby",
@@ -589,16 +537,12 @@
           })
         }
 
-
         this.recipe.title = "";
         this.recipe.ingridients = "";
         this.recipe.directions = "";
         this.recipe.url = "";
         this.recipe.select = "";
       },
-
-
-
 
       clearRecipe() {
         this.recipe.title = "";
@@ -653,9 +597,6 @@
           })
         });
 
-
-
-
         this.productsList[index].items.push({
           title: this.product.name,
           kcal: this.product.kcal + " kcal"
@@ -679,14 +620,9 @@
 
         // POBIERZ Z FIREBASE I DODAJ DO PRODUCT DISPLAY
 
-
-
         this.recipesList = recipeIDs;
         // console.log(Object.keys(this.recipesList[0].items))
         // console.log(this.recipesList[0].items['-KzFE5s7azulqrjNOGrB']);
-
-    
-
 
       });
     },
@@ -698,11 +634,9 @@
       filteredRecipes: function () {
           return this.recipesList.filter((data)=>{
             return data
-            // return data.items['-KzFE5s7azulqrjNOGrB'].title.match(this.searchInput);
           })
       }
       // FILTROWANIE  INPUT / RECIPELIST
-
 
     },
     mounted() {
@@ -711,24 +645,6 @@
   };
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <style scoped>

@@ -42,101 +42,67 @@
 </template>
 
 <script>
-  import {
-    breakfastRecipe
-  } from '../firebase';
-  import {
-    dinnerRecipe
-  } from '../firebase';
-  import {
-    supperRecipe
-  } from '../firebase';
-  import {
-    dessertRecipe
-  } from '../firebase';
-  import {
-    snackRecipe
-  } from '../firebase';
+import { breakfastRecipe } from "../firebase";
+import { dinnerRecipe } from "../firebase";
+import { supperRecipe } from "../firebase";
+import { dessertRecipe } from "../firebase";
+import { snackRecipe } from "../firebase";
 
-  export default {
-    data() {
-      return {
-        ide: '-KzFE5s7azulqrjNOGrB',
-        searchInput: '',
-        page: 1,
-        ex8: 'radio-1',
-        ex9: 'radio-3',
-        drawer: true,
-        drawerRight: true,
-        right: null,
-        left: null,
-        imagePlaceholder: "https://mezmiz.com/media/1_0b3304fb6a6650ea6732ca231338659d.png",
-        recipesList: [],
-        filteredList: [],
-      }
-    },
-    created() {
-      fetch('https://gluten-free-app.firebaseio.com/recipe.json').then(function (data) {
+export default {
+  props: ['id'],
+  data() {
+    return {
+      searchInput: "",
+      page: 1,
+      ex8: "radio-1",
+      ex9: "radio-3",
+      drawer: true,
+      drawerRight: true,
+      right: null,
+      left: null,
+      imagePlaceholder:
+        "https://mezmiz.com/media/1_0b3304fb6a6650ea6732ca231338659d.png",
+      recipesList: [],
+      filteredList: []
+    };
+  },
+  created() {
+    fetch("https://gluten-free-app.firebaseio.com/recipe.json")
+      .then(function(data) {
         return data.json();
-      }).then((data) => {
+      })
+      .then(data => {
         var recipeIDs = [];
         for (let ids in data) {
           data[ids].id = ids;
           recipeIDs.push(data[ids]);
         }
         this.recipesList = recipeIDs;
+        console.log(this.recipesList)
       });
-
-        var tablica = this.recipesList;
-        for (let i of tablica) {
-          let to = this.ide;
-          let emptyT = [];
-          for (let a in i.items) {
-            if (a === to) {
-              emptyT.unshift(i.items[to]);
-              this.filteredList = emptyT;
-              console.log(this.filteredList)
-            }
-          }
-        }
-    },
-    watch: {
-      '$route' (to, from) {
-        this.ide = this.$route.params.id
-      },
-      ide: function () {
-        var tablica = this.recipesList;
-        for (let i of tablica) {
-          let to = this.ide;
-          let emptyT = [];
-          for (let a in i.items) {
-            if (a === to) {
-              emptyT.unshift(i.items[to]);
-              this.filteredList = emptyT;
-              console.log(this.filteredList)
-            }
+  },
+  watch: {
+    id() {
+      var recipes = this.recipesList;
+      var id = this.id;
+      for (let recipe of recipes) {
+        let currentRecipe = [];
+        for (let key in recipe.items) {
+          if (key === id) {
+            currentRecipe.unshift(recipe.items[id]);
+            this.filteredList = currentRecipe;
           }
         }
       }
-    },
-    computed: {
-      filteredRecipes: function () {
-       
-
-
-
-
-
-
-
-
-       
-        // return data.items['-KzFE5s7azulqrjNOGrB'].title.match(this.searchInput);
-      }
-      // FILTROWANIE  INPUT / RECIPELIST
     }
-  };
-
+  },
+  computed: {
+    filteredRecipes: function() {
+      // return data.items['-KzFE5s7azulqrjNOGrB'].title.match(this.searchInput);
+    }
+    // FILTROWANIE  INPUT / RECIPELIST
+  }
+};
 </script>
 
 
@@ -144,14 +110,13 @@
 
 
 <style scoped>
-  img {
-    max-width: 300px;
-    border-radius: 10px;
-    border: 1px solid #aeff00;
-  }
-  ul {
-    list-style: none;
-  }
-
+img {
+  max-width: 300px;
+  border-radius: 10px;
+  border: 1px solid #aeff00;
+}
+ul {
+  list-style: none;
+}
 </style>
 
